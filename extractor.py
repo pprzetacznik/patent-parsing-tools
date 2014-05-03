@@ -2,25 +2,39 @@
 #!/usr/bin/env python
 
 import os
-import xml.etree.ElementTree as ET
-import sys
+import re
+import lxml.etree as ET
+import json
+import cPickle
+from patent import Patent
 
 
-def main(inputfile):
-    tree = ET.parse(inputfile)
-    root = tree.getroot()
-    print "Document ID:", root.findall('.//publication-reference//document-id//doc-number')[0].text
-    print "Invention Title:", root.findall('.//us-bibliographic-data-grant//invention-title')[0].text
+class Extractor():
+    def __init__(self, extractor_xpath, dir = "."):
+        self.extractor_xpath = extractor_xpath
+        self.dir = dir
+        if not os.path.isdir(dir):
+            os.makedirs(dir)
+        json_data = open(extractor_xpath)
+        self.structure = json.load(json_data)
+        json_data.close()
 
+    def parse_and_save_to_database(self, inputfile):
+        tree = ET.parse(inputfile)
+        root = tree.getroot()
 
+        dtdFile = tree.docinfo.internalDTD.system_url if tree.docinfo.internalDTD.system_url else 'default'
+        dtdStructure = self.structure[dtdFile]
 
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        inputfile = sys.argv[1]
-    else:
-        inputfile = 'c:\\patenty\\ipg131224\\concated\\US08613112-20131224.XML'
+        patent = Patent()
+        patent.documentID = root.findall(dtdStructure["documentID"])[0].text
+        patent.title = root.findall(dtdStructure["inventionTitle"])[0].text
+        patent.date = root.findall(dtdStructure["date"])[0].text
+        description = ET.tostring(root.findall(dtdStructure["description"])[0], pretty_print=True)
+        patent.description = re.sub('<[^<]+?>', '', description)
+        claims = ET.tostring(root.findall(dtdStructure["claims"])[0], pretty_print=True)
+        patent.claims = re.sub('<[^<]+?>', '', claims)
 
-    if os.path.isfile(inputfile):
-        main(inputfile)
-    else:
-        print "File: " + inputfile + " doesn't exist"
+        f = file(self.dir + '/' + root.attrib['file'] + '.save', 'wb')
+        cPickle.dump(patent, f, protocol=cPickle.HIGHEST_PROTOCOL)
+        f.close()
