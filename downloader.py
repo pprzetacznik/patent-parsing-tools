@@ -5,9 +5,11 @@ import os
 import re
 import urllib
 import urllib2
+import sys
 from lxml import etree
 
 class Downloader():
+
     URLS_XPATH='//a/@href'
 
     def __init__(self, base_url):
@@ -18,9 +20,9 @@ class Downloader():
         for url in urls:
             filename = os.path.basename(url)
             print filename
-            localfile = os.path.join(directory, filename)
-            if not os.path.isfile(localfile):
-                urllib.urlretrieve(url, localfile)
+            local_file = os.path.join(directory, filename)
+            if not os.path.isfile(local_file):
+                urllib.urlretrieve(url, local_file)
                 print "   downloaded"
             else:
                 print "   file already exists"
@@ -45,5 +47,26 @@ class Downloader():
         year = int(match.group('year'))
         return begin_year <= year and year <= end_year
 
-downloader = Downloader('https://www.google.com/googlebooks/uspto-patents-grants-text.html')
-downloader.download_archives('C:\\tmp', 2002, 2014)
+def process_args(argv):
+    dir = sys.argv[1]
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
+
+    try:
+        begin_year = int(sys.argv[2])
+        end_year = int(sys.argv[3])
+    except:
+        print "incorrect year"
+
+    return dir, begin_year, end_year
+
+if __name__ == '__main__':
+    if len(sys.argv) == 4:
+        dir, begin_year, end_year = process_args(sys.argv)
+
+        url = 'https://www.google.com/googlebooks/uspto-patents-grants-text.html'
+
+        downloader = Downloader(url)
+        downloader.download_archives(dir, begin_year, end_year)
+    else:
+        print "python downloader.py [directory] [year_from] [year_to]"
