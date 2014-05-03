@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
+import os
 import re
+import urllib
 import urllib2
 from lxml import etree
 
@@ -15,6 +17,9 @@ class Downloader():
         urls = self.get_urls(begin_year, end_year)
         for url in urls:
             print "Downloading", url, "..."
+            filename = os.path.basename(url)
+            urllib.urlretrieve(url, os.path.join(directory, filename))
+            print "OK"
 
     def get_urls(self, begin_year, end_year):
         content = self.get_base_url_content()
@@ -37,4 +42,4 @@ class Downloader():
         return begin_year <= year and year <= end_year
 
 downloader = Downloader('https://www.google.com/googlebooks/uspto-patents-grants-text.html')
-downloader.download_archives(None, 2002, 2014)
+downloader.download_archives('C:\\tmp', 2002, 2014)
