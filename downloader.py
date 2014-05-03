@@ -16,10 +16,14 @@ class Downloader():
     def download_archives(self, directory, begin_year, end_year):
         urls = self.get_urls(begin_year, end_year)
         for url in urls:
-            print "Downloading", url, "..."
             filename = os.path.basename(url)
-            urllib.urlretrieve(url, os.path.join(directory, filename))
-            print "OK"
+            print filename
+            localfile = os.path.join(directory, filename)
+            if not os.path.isfile(localfile):
+                urllib.urlretrieve(url, localfile)
+                print "   downloaded"
+            else:
+                print "   file already exists"
 
     def get_urls(self, begin_year, end_year):
         content = self.get_base_url_content()
