@@ -18,4 +18,4 @@ class TestDownloader(TestCase):
         downloader = Downloader('')
         url = 'http://somedomain/2012/patent.tgz'
         matched = downloader.url_matcher(url, 2012, 2013)
-        assert matched
+        assert not matched
