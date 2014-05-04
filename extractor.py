@@ -10,12 +10,12 @@ from patent import Patent
 
 
 class Extractor():
-    def __init__(self, extractor_xpath, dir = "."):
-        self.extractor_xpath = extractor_xpath
+    def __init__(self, extractor_xpath_configuration, dir = "."):
+        self.extractor_xpath = extractor_xpath_configuration
         self.dir = dir
         if not os.path.isdir(dir):
             os.makedirs(dir)
-        json_data = open(extractor_xpath)
+        json_data = open(extractor_xpath_configuration)
         self.structure = json.load(json_data)
         json_data.close()
 
