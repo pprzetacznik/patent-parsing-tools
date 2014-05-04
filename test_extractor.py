@@ -11,7 +11,7 @@ import os
 
 class TestExtractor(unittest.TestCase):
     def setUp(self):
-        self.extractor = Extractor('extractor_xpath.json', 'test_data')
+        self.extractor = Extractor('extractor_configuration.json', 'test_data')
 
     def tearDown(self):
         for root, dirs, files in os.walk('test_data', topdown=False):
@@ -55,6 +55,9 @@ class TestExtractor(unittest.TestCase):
     def test_exceptions(self):
         inputfile = 'US08613112-notSupportedDTD.xml'
         self.assertRaises(RuntimeError, self.extractor.parse_and_save_to_database, inputfile)
+
+    def test_throw_exception_and_go_through(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()
