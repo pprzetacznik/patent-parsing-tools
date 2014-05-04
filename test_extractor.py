@@ -20,11 +20,11 @@ class TestExtractor(unittest.TestCase):
         os.rmdir('test_data')
 
     def test_should_load_json_file(self):
-        self.assertIsNotNone(self.extractor.structure["default"]["documentID"])
+        self.assertIsNotNone(self.extractor.structure["us-patent-grant-v44-2013-05-16.dtd"]["documentID"])
         pprint(self.extractor.structure)
 
     def test_serialization(self):
-        inputfile = 'c:\\patenty\\ipg131224\\concated\\US08613112-20131224.XML'
+        inputfile = 'US08613112-20131224.XML'
 
         tree = ET.parse(inputfile)
         root = tree.getroot()
@@ -44,8 +44,17 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual(loaded_obj.documentID, root.findall(dtdStructure["documentID"])[0].text)
         self.assertEqual(loaded_obj.title, root.findall(dtdStructure["inventionTitle"])[0].text)
         self.assertEqual(loaded_obj.date, root.findall(dtdStructure["date"])[0].text)
+        self.assertIsNotNone(loaded_obj.abstract)
         self.assertIsNotNone(loaded_obj.description)
         self.assertIsNotNone(loaded_obj.claims)
+
+    def test_exceptions(self):
+        inputfile = 'US08613112-noDTDFile.xml'
+        self.assertRaises(RuntimeError, self.extractor.parse_and_save_to_database, inputfile)
+
+    def test_exceptions(self):
+        inputfile = 'US08613112-notSupportedDTD.xml'
+        self.assertRaises(RuntimeError, self.extractor.parse_and_save_to_database, inputfile)
 
 if __name__ == '__main__':
     unittest.main()

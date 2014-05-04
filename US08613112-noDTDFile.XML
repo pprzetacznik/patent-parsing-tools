@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<us-patent-grant lang="EN" dtd-version="v4.4 2013-05-16" file="US08613112-20131224.XML" status="PRODUCTION" id="us-patent-grant" country="US" date-produced="20131209" date-publ="20131224">
+    <us-bibliographic-data-grant>
+        <publication-reference>
+            <document-id>
+                <country>US</country>
+                <doc-number>08613112</doc-number>
+                <kind>B2</kind>
+                <date>20131224</date>
+            </document-id>
+        </publication-reference>
+        <application-reference appl-type="utility">
+            <document-id>
+                <country>US</country>
+                <doc-number>12994775</doc-number>
+                <date>20090525</date>
+            </document-id>
+        </application-reference>
+        <us-application-series-code>12</us-application-series-code>
+        <priority-claims>
+            <priority-claim sequence="01" kind="national">
+                <country>IT</country>
+                <doc-number>BO2008A0338</doc-number>
+                <date>20080528</date>
+            </priority-claim>
+        </priority-claims>
+        <us-term-of-grant>
+            <us-term-extension>183</us-term-extension>
+        </us-term-of-grant>
+        <classifications-ipcr>
+            <classification-ipcr>
+                <ipc-version-indicator><date>20060101</date></ipc-version-indicator>
+                <classification-level>A</classification-level>
+                <section>A</section>
+                <class>41</class>
+                <subclass>D</subclass>
+                <main-group>1</main-group>
+                <subgroup>04</subgroup>
+                <symbol-position>F</symbol-position>
+                <classification-value>I</classification-value>
+                <action-date><date>20131224</date></action-date>
+                <generating-office><country>US</country></generating-office>
+                <classification-status>B</classification-status>
+                <classification-data-source>H</classification-data-source>
+            </classification-ipcr>
+            <classification-ipcr>
+                <ipc-version-indicator><date>20060101</date></ipc-version-indicator>
+                <classification-level>A</classification-level>
+                <section>A</section>
+                <class>41</class>
+                <subclass>D</subclass>
+                <main-group>27</main-group>
+                <subgroup>20</subgroup>
+                <symbol-position>L</symbol-position>
+                <classification-value>I</classification-value>
+                <action-date><date>20131224</date></action-date>
+                <generating-office><country>US</country></generating-office>
+                <classification-status>B</classification-status>
+                <classification-data-source>H</classification-data-source>
+            </classification-ipcr>
+        </classifications-ipcr>
+        <classification-national>
+            <country>US</country>
+            <main-classification>  2 69</main-classification>
+            <further-classification>  2115</further-classification>
+            <further-classification>  2247</further-classification>
+        </classification-national>
+        <invention-title id="d2e71">Article of clothing particularly intended to be used along with electronic devices</invention-title>
+        <us-references-cited>
+            <us-citation>
+                <patcit num="00001">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>6324053</doc-number>
+                        <kind>B1</kind>
+                        <name>Kamijo</name>
+                        <date>20011100</date>
+                    </document-id>
+                </patcit>
+                <category>cited by applicant</category>
+            </us-citation>
+            <us-citation>
+                <patcit num="00002">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>6561814</doc-number>
+                        <kind>B2</kind>
+                        <name>Tilbury et al.</name>
+                        <date>20030500</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>439 37</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00003">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>6792124</doc-number>
+                        <kind>B2</kind>
+                        <name>Tilbury et al.</name>
+                        <date>20040900</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>381333</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00004">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>6826782</doc-number>
+                        <kind>B2</kind>
+                        <name>Jordan</name>
+                        <date>20041200</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>  2 94</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00005">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>7168098</doc-number>
+                        <kind>B2</kind>
+                        <name>West</name>
+                        <date>20070100</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>  2 93</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00006">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>7519192</doc-number>
+                        <kind>B1</kind>
+                        <name>Laycock et al.</name>
+                        <date>20090400</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>381301</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00007">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>7673348</doc-number>
+                        <kind>B2</kind>
+                        <name>Williams</name>
+                        <date>20100300</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>  2115</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00008">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2002/0197960</doc-number>
+                        <kind>A1</kind>
+                        <name>Lee</name>
+                        <date>20021200</date>
+                    </document-id>
+                </patcit>
+                <category>cited by applicant</category>
+            </us-citation>
+            <us-citation>
+                <patcit num="00009">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2004/0154076</doc-number>
+                        <kind>A1</kind>
+                        <name>Yoo</name>
+                        <date>20040800</date>
+                    </document-id>
+                </patcit>
+                <category>cited by applicant</category>
+            </us-citation>
+            <us-citation>
+                <patcit num="00010">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2005/0114988</doc-number>
+                        <kind>A1</kind>
+                        <name>Dow</name>
+                        <date>20050600</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>  2247</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00011">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2006/0075537</doc-number>
+                        <kind>A1</kind>
+                        <name>Tsai</name>
+                        <date>20060400</date>
+                    </document-id>
+                </patcit>
+                <category>cited by applicant</category>
+            </us-citation>
+            <us-citation>
+                <patcit num="00012">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2007/0245444</doc-number>
+                        <kind>A1</kind>
+                        <name>Brink</name>
+                        <date>20071000</date>
+                    </document-id>
+                </patcit>
+                <category>cited by applicant</category>
+            </us-citation>
+            <us-citation>
+                <patcit num="00013">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2008/0184459</doc-number>
+                        <kind>A1</kind>
+                        <name>Barnes</name>
+                        <date>20080800</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>  2249</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00014">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2008/0267440</doc-number>
+                        <kind>A1</kind>
+                        <name>Alden</name>
+                        <date>20081000</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>381385</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00015">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2010/0175161</doc-number>
+                        <kind>A1</kind>
+                        <name>Jarboe</name>
+                        <date>20100700</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>  2 69</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00016">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2010/0287677</doc-number>
+                        <kind>A1</kind>
+                        <name>Alexander</name>
+                        <date>20101100</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>  2 50</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00017">
+                    <document-id>
+                        <country>US</country>
+                        <doc-number>2012/0201412</doc-number>
+                        <kind>A1</kind>
+                        <name>Del Prete</name>
+                        <date>20120800</date>
+                    </document-id>
+                </patcit>
+                <category>cited by examiner</category>
+                <classification-national><country>US</country><main-classification>381374</main-classification></classification-national>
+            </us-citation>
+            <us-citation>
+                <patcit num="00018">
+                    <document-id>
+                        <country>JP</country>
+                        <doc-number>2003 013317</doc-number>
+                        <kind>A</kind>
+                        <date>20030100</date>
+                    </document-id>
+                </patcit>
+                <category>cited by applicant</category>
+            </us-citation>
+            <us-citation>
+                <patcit num="00019">
+                    <document-id>
+                        <country>WO</country>
+                        <doc-number>WO2008/133856</doc-number>
+                        <kind>A</kind>
+                        <date>20081100</date>
+                    </document-id>
+                </patcit>
+                <category>cited by applicant</category>
+            </us-citation>
+            <us-citation>
+                <nplcit num="00020">
+                    <othercit>International Search Report, Oct. 1, 2009.</othercit>
+                </nplcit>
+                <category>cited by applicant</category>
+            </us-citation>
+        </us-references-cited>
+        <number-of-claims>5</number-of-claims>
+        <us-exemplary-claim>1</us-exemplary-claim>
+        <us-field-of-classification-search>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2 94</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2108</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2115</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2247</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2 69</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2 93</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2125</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2249-253</main-classification>
+                <additional-info>unstructured</additional-info>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>  2270</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>381374</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>381380</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>381301</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>381388</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>36167903</main-classification>
+            </classification-national>
+            <classification-national>
+                <country>US</country>
+                <main-classification>439 37</main-classification>
+            </classification-national>
+        </us-field-of-classification-search>
+        <figures>
+            <number-of-drawing-sheets>1</number-of-drawing-sheets>
+            <number-of-figures>2</number-of-figures>
+        </figures>
+        <us-related-documents>
+            <related-publication>
+                <document-id>
+                    <country>US</country>
+                    <doc-number>20110185469</doc-number>
+                    <kind>A1</kind>
+                    <date>20110804</date>
+                </document-id>
+            </related-publication>
+        </us-related-documents>
+        <us-parties>
+            <us-applicants>
+                <us-applicant sequence="001" app-type="applicant" designation="us-only">
+                    <addressbook>
+                        <last-name>Santucci</last-name>
+                        <first-name>Massimiliano</first-name>
+                        <address>
+                            <city>Argelato</city>
+                            <country>IT</country>
+                        </address>
+                    </addressbook>
+                    <residence>
+                        <country>IT</country>
+                    </residence>
+                </us-applicant>
+                <us-applicant sequence="002" app-type="applicant" designation="us-only">
+                    <addressbook>
+                        <last-name>Santucci</last-name>
+                        <first-name>Domenico</first-name>
+                        <address>
+                            <city>Argelato</city>
+                            <country>IT</country>
+                        </address>
+                    </addressbook>
+                    <residence>
+                        <country>IT</country>
+                    </residence>
+                </us-applicant>
+            </us-applicants>
+            <inventors>
+                <inventor sequence="001" designation="us-only">
+                    <addressbook>
+                        <last-name>Santucci</last-name>
+                        <first-name>Massimiliano</first-name>
+                        <address>
+                            <city>Argelato</city>
+                            <country>IT</country>
+                        </address>
+                    </addressbook>
+                </inventor>
+                <inventor sequence="002" designation="us-only">
+                    <addressbook>
+                        <last-name>Santucci</last-name>
+                        <first-name>Domenico</first-name>
+                        <address>
+                            <city>Argelato</city>
+                            <country>IT</country>
+                        </address>
+                    </addressbook>
+                </inventor>
+            </inventors>
+            <agents>
+                <agent sequence="01" rep-type="attorney">
+                    <addressbook>
+                        <last-name>Sapone</last-name>
+                        <first-name>William J.</first-name>
+                        <address>
+                            <country>unknown</country>
+                        </address>
+                    </addressbook>
+                </agent>
+                <agent sequence="02" rep-type="attorney">
+                    <addressbook>
+                        <orgname>Ware Fressola Maguire &#x26; Barber LLP</orgname>
+                        <address>
+                            <country>unknown</country>
+                        </address>
+                    </addressbook>
+                </agent>
+            </agents>
+        </us-parties>
+        <assignees>
+            <assignee>
+                <addressbook>
+                    <last-name>Santuccio</last-name>
+                    <first-name>Massimiliano</first-name>
+                    <role>05</role>
+                    <address>
+                        <city>Argelato (Bologna)</city>
+                        <country>IT</country>
+                    </address>
+                </addressbook>
+            </assignee>
+        </assignees>
+        <examiners>
+            <primary-examiner>
+                <last-name>Vanatta</last-name>
+                <first-name>Amy</first-name>
+                <department>3765</department>
+            </primary-examiner>
+        </examiners>
+        <pct-or-regional-filing-data>
+            <document-id>
+                <country>WO</country>
+                <doc-number>PCT/EP2009/056266</doc-number>
+                <kind>00</kind>
+                <date>20090525</date>
+            </document-id>
+            <us-371c124-date>
+                <date>20110131</date>
+            </us-371c124-date>
+        </pct-or-regional-filing-data>
+        <pct-or-regional-publishing-data>
+            <document-id>
+                <country>WO</country>
+                <doc-number>WO2009/150026</doc-number>
+                <kind>A </kind>
+                <date>20091217</date>
+            </document-id>
+        </pct-or-regional-publishing-data>
+    </us-bibliographic-data-grant>
+    <abstract id="abstract">
+        <p id="p-0001" num="0000">An article of clothing comprises a garment (<b>11</b>) for covering at least partially the bust of the user wearing the garment. The garment has a case (<b>2</b>) for at least an electronic device (<b>3</b>) provided with controls for setting its functioning. The case (<b>2</b>) has a transparent window (<b>4</b>) which allows the user to see what is contained in the case (<b>2</b>), and which is deformable so that the user can manually actuate the controls. The case is fixed on the outer side of the garment (<b>11</b>), at the bust or upper limbs of the user, in such a position and an arrangement that it can be reached directly by the sight of the user so that he/she can see therein through the window (<b>4</b>).</p>
+    </abstract>
+    <drawings id="DRAWINGS">
+        <figure id="Fig-EMI-D00000" num="00000">
+            <img id="EMI-D00000" he="167.30mm" wi="239.78mm" file="US08613112-20131224-D00000.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+        </figure>
+        <figure id="Fig-EMI-D00001" num="00001">
+            <img id="EMI-D00001" he="240.54mm" wi="169.67mm" orientation="landscape" file="US08613112-20131224-D00001.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+        </figure>
+    </drawings>
+    <description id="description">
+        <?BRFSUM description="Brief Summary" end="lead"?>
+        <heading id="h-0001" level="1">TECHNICAL FIELD</heading>
+        <p id="p-0002" num="0001">The present invention relates to the technical field concerning the articles of clothing apt to cover the bust of the user wearing it, such for example but not limited to sweaters, T-shirt, jumpers, shirts, blouses, overcoats, raincoats, waxed jackets, vests, jackets, coats, waistcoats, polo shirts, tops etc. . . .</p>
+        <heading id="h-0002" level="1">BACKGROUND ART</heading>
+        <p id="p-0003" num="0002">Particularly referring to the field of sporting activities, both professional and amateur, by way of example and solely for the sake of a clearer description, it is a common experience the remarkable discomfort caused by the fact that it is not possible to bring along, i.e. during the same sporting activity, those widely and frequently daily used electronic devices (cellphone, portable music player, PDA, etc. . . . ).</p>
+        <p id="p-0004" num="0003">Generally, the user of such electronic devices attempts to obviate this discomfort by further bringing along a so-called &#x201c;bumbag&#x201d; or a so-called &#x201c;mono-shoulder bag&#x201d;, where to accommodate the devices.</p>
+        <p id="p-0005" num="0004">Such a measure has however remarkable drawbacks, which are described in the following.</p>
+        <p id="p-0006" num="0005">First of all, bumbags and mono-shoulder bags represent an extra weight and an encumbrance in addition to the same electronic devices, thus accelerating the fatigue and compromising the sporting performance of the user, and they usually prevent his/her complete freedom of movements as well.</p>
+        <p id="p-0007" num="0006">Another significant drawback is the fact that the market scarcely offers earphone devices, whose cables connecting to the provided audio outputs of the aforementioned electronic device, which is accommodated for example in the bumbag anchored at waist, are sufficiently long so that the user can easily perform bust or neck torsions, without such cables resist thereto and without the user remaining substantially bridled; thus compromising not only the performances but above all the enjoyment of the same sporting activity.</p>
+        <p id="p-0008" num="0007">Finally, another drawback is the fact that in order to control the electronic device functioning, usually by means of a numeric keypad or a buttons set or also a tactile screen (more commonly known as &#x201c;touch screen&#x201d;), the user needs to take the device out from the bumbag or shoulder-bag to visually check his/her proper handling of such controls, this leading the user to be distracted from the sporting activity he/she is performing, and to frequently interrupt it in order to fully concentrate on the same device.</p>
+        <heading id="h-0003" level="1">SUMMARY OF THE INVENTION</heading>
+        <p id="p-0009" num="0008">Therefore, an object of the present invention is to solve the aforementioned drawbacks and others more by providing an article of clothing, according to claim <b>1</b>, comprising a garment apt to cover at least partially the bust of the user wearing it, and further comprising at least a case, which is particularly intended to accommodate at least an electronic device provided with controls for setting its functioning, the case comprising in turn a transparent window which allows to see what is contained in said case, and which is deformable so that said user, by manually acting on the same, can actuate said controls; the case being fixed on the outer side of said garment, at the bust or upper limbs of the user, in such a position and an arrangement that it can be reached directly by the sight of the user so that he/she can see therein through the window.</p>
+        <p id="p-0010" num="0009">Since the inventive article of clothing is suitably provided with a case for the electronic devices, the present invention fully obviates the drawback due to the usage of the aforementioned bumbag and mono-shoulder bag, which implies additional weight and encumbrance with respect to the same electronic devices.</p>
+        <p id="p-0011" num="0010">Moreover, in case the user wants to use earphone devices connected via cable to the electronic device accommodated in the case, this one being arranged at either the bust (preferably the trunk) or upper limbs, he/she can freely perform even impulsive torsions of the shoulders, bust or neck, without being subjected to the aforementioned resistance to such movements caused by the connecting cable (the practical arrangement and usage thereof will be better described in the following, with reference to a preferred embodiment of the invention).</p>
+        <p id="p-0012" num="0011">In addition, since the inventive article is advantageously provided with said transparent and deformable window, arranged at a position which is easily reachable by the hands and the sight of the user, he/she can actuate the controls of the device in a suitable, efficient and not &#x201c;blindly&#x201d; way, thus evaluating what is represented on possible visualizing means (so-called display) of the same device, and in general fully using every function available, not only without requiring to take it out from where it is temporarily placed, but above all without requiring to distract oneself from the activity being performed, much less to interrupt it even temporarily.</p>
+        <?BRFSUM description="Brief Summary" end="tail"?>
+        <?brief-description-of-drawings description="Brief Description of Drawings" end="lead"?>
+        <description-of-drawings>
+            <heading id="h-0004" level="1">BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+            <p id="p-0013" num="0012">The features of the invention, not emerging from the previous description, will be better highlighted in the following, according to what is claimed and with reference to the appended drawings, in which:</p>
+            <p id="p-0014" num="0013"><figref idref="DRAWINGS">FIG. 1</figref> is a partial schematic view of an article of clothing according to the invention;</p>
+            <p id="p-0015" num="0014"><figref idref="DRAWINGS">FIG. 2</figref> is a cross section schematic view along line II-II of <figref idref="DRAWINGS">FIG. 1</figref>, of a particular technical-functional aspect of the article of clothing according to the preceding figure.</p>
+        </description-of-drawings>
+        <?brief-description-of-drawings description="Brief Description of Drawings" end="tail"?>
+        <?DETDESC description="Detailed Description" end="lead"?>
+        <heading id="h-0005" level="1">BEST MODE OF CARRYING OUT THE INVENTION</heading>
+        <p id="p-0016" num="0015">Referring to the appended drawings, the reference number <b>1</b> indicates an article of clothing comprising a garment <b>11</b> apt to cover at least partially the bust of a user wearing it, and further comprising at least a case <b>2</b>, which is particularly intended to accommodate at least an electronic device <b>3</b> provided with controls for its functioning setting, the case <b>2</b> comprising in turn:
+            <ul id="ul0001" list-style="none">
+                <li id="ul0001-0001" num="0000">
+                    <ul id="ul0002" list-style="none">
+                        <li id="ul0002-0001" num="0016">a transparent window <b>4</b> which allows to see what is contained in said case <b>2</b> and which is deformable so that said user, by manually acting on the same, can actuate said controls, and</li>
+                        <li id="ul0002-0002" num="0017">opening and closing means <b>5</b>, such that the case <b>2</b> can be changed from an opening functioning arrangement, in which said electronic device <b>3</b> can be alternately either put in or taken out from the case <b>2</b>, to a closing functioning arrangement in which the electronic device <b>3</b> is completely enclosed in the case <b>2</b>, so that it is prevented from coming out accidentally therefrom.</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p id="p-0017" num="0018">The case <b>2</b> is fixed on the outer side of said garment <b>11</b> at either the bust or the upper limbs of the user, in such a position and an arrangement that it is reachable directly by the sight of the user, so that he/she can see therein through the window <b>4</b>.</p>
+        <p id="p-0018" num="0019">In the appended drawings, it is particularly shown a preferred but not limiting embodiment of the invention, which is described in more detail in the following, further exemplary embodiments being enlisted in the description as well.</p>
+        <p id="p-0019" num="0020">Said transparent window <b>4</b> is preferably realized in plastic material and said opening and closing means <b>5</b> are realized by means of the technology commonly known in the market with the Velcro&#xae; brand (see box J of <figref idref="DRAWINGS">FIG. 1</figref>, showing the enlarged detail of the portion of the article <b>1</b>, where it is obtained the case <b>2</b>).</p>
+        <p id="p-0020" num="0021">As it is clear to the experts in the art, other possible opening and closing means <b>5</b>, fit for the purpose and however falling in the scope of the invention can be: a hinge, a set of snaps etc. . . .</p>
+        <p id="p-0021" num="0022">In the preferred embodiment of the invention, said garment <b>11</b> is provided with long sleeves and the case <b>2</b> is arranged at the distal end of its left sleeve, i.e. near the portion of the wrist (where, for example, it is usually realized a hem or a cuff).</p>
+        <p id="p-0022" num="0023">In addition, the case <b>2</b> is preferably realized in waterproof material and it is substantially sealed when it is in the closing functioning arrangement.</p>
+        <p id="p-0023" num="0024">Therefore, the user can advantageously use the article <b>1</b> freely, even in rainy days or abroad of crafts, without the electronic device <b>3</b> being subjected to the risks due to its exposure to water or moisture.</p>
+        <p id="p-0024" num="0025">According to a preferred technical-functional aspect, the case <b>2</b> is suitably stitched on the garment <b>11</b>, although it is clear that it can be fixed thereto also by means of other means, provided that they are fit for the purpose; these means being not shown here since they are known to the experts in the art.</p>
+        <p id="p-0025" num="0026">According to a preferred embodiment shown in the appended drawings, the article <b>1</b> comprises a waterproof coulisse <b>6</b>, obtained in known manner along the left sleeve of the garment <b>11</b>, whose inner volume communicates in a sealing way with the interior of the case <b>2</b> by means of a first buttonhole <b>61</b>, and with the outside by means of a second buttonhole <b>62</b> arranged at the head of the user, said coulisse <b>6</b> being apt to accommodate therein a filiform element <b>7</b> for the transmission of signals.</p>
+        <p id="p-0026" num="0027">Said filiform element <b>7</b> is preferably a cable for the electrical transmission of audio signals; it is provided with a waterproof coating and with a male jack <b>71</b> at one end and with a female jack <b>72</b> at the other end as well, the female jack <b>72</b> being realized in stainless material, for example stainless copper; said element <b>7</b> being introduced in the coulisse <b>6</b>, so that said female jack <b>72</b> is placed at the second buttonhole <b>62</b> and said male jack <b>71</b> is placed inside the case <b>2</b> (see <figref idref="DRAWINGS">FIG. 1</figref>).</p>
+        <p id="p-0027" num="0028">Thanks to these measures, it is possible not only to wear the article <b>1</b> including the filiform element <b>7</b> in rainy days, but it is even possible to wash the article <b>1</b>, even in the washing machine, without requiring the need to take out the element <b>7</b> from the coulisse <b>6</b>; this being a surprising advantage with respect to the known technique.</p>
+        <p id="p-0028" num="0029">The filiform element <b>7</b> is preferably introduced in the coulisse <b>6</b>, such that it is prevented from coming out accidentally therefrom (see <figref idref="DRAWINGS">FIG. 2</figref>); this being possible, by way of example, by stitching the upper edge of the coulisse on the element <b>7</b>, which is already suitably arranged on the sleeve of the garment <b>11</b>, obviously provided that such upper edge is suitably dimensioned.</p>
+        <p id="p-0029" num="0030">The functioning is easy and immediate: when the case <b>2</b> is in the opening functioning arrangement, the user puts the male jack <b>71</b> in the audio output of the electronic device <b>3</b>, for example a digital audio player (see box J again); then he/she introduces this latter inside the case <b>2</b>; he/she closes this latter, i.e. places the case <b>2</b> in its closing functioning arrangement; and puts a male jack <b>81</b> of an earphone device <b>8</b> in said female jack <b>62</b> (see in particular box K).</p>
+        <p id="p-0030" num="0031">Then, for example, the user can go jogging comfortably and without stopping; he/she can at any time select the audio song he/she wants to listen to, by selecting it, by way of example, from a list visible on a display of the device <b>3</b>; the user being able to read the list perfectly through the transparent window <b>4</b>, to then start the reproduction of the song, by acting suitably on the functioning controls of the same device <b>3</b>, by suitably pressing on the window <b>4</b>, thanks to its advantageous above-described deformability.</p>
+        <p id="p-0031" num="0032">in the following there are described further embodiments of the inventive article of clothing <b>1</b>, which are not described in the appended drawings.</p>
+        <p id="p-0032" num="0033">In one of these alternative embodiments, the article <b>1</b> is provided with a case <b>2</b> dedicated to a particular device <b>3</b>; the case <b>2</b> is virtually provided with an inner shape, which is substantially complementary to the outer one of the article <b>1</b>, the particular technical-functional aspect being that the transparent and deformable window <b>4</b> is provided with an outer shape, that follows the outer one of the functional portion of the article <b>1</b>, for example the numeric keypad and display, so that the actuation of the functioning controls of the device <b>3</b> is more immediate and faster for the user, simply by using the similarity between the outer shape of the window <b>4</b> and the respective and underlying control elements.</p>
+        <p id="p-0033" num="0034">More exactly, in case the device is a specific cell phone provided with a particular numeric keypad, the window <b>4</b> will be also provided with a raised shape of such numeric keypad, so that each button of the phone corresponds, on the upper portion and in strict adherence, to an element of the window <b>4</b>, which is raised and reproduces its shape, so that when pushing this one, the user actuates immediately and as a consequence the respective underlying button.</p>
+        <p id="p-0034" num="0035">According to another possible embodiment of the invention, the case <b>2</b> is free from opening and closing means <b>5</b>, in other words it is always in the closing functioning arrangement, so that the device <b>3</b> is always enclosed in the case <b>2</b>.</p>
+        <p id="p-0035" num="0036">Thanks to this measure, it is neither required the device <b>3</b> to be usually available in the market, nor is it to be provided with a protective case.</p>
+        <p id="p-0036" num="0037">It can simply be made up of the assembly of the circuitry and the electronic elements sufficient to its functioning, which are completely protected by the case <b>2</b> which can be shockproof and waterproof, this latter being not provided with any opening communicating with the outside, other than the ones suitable to make accessible to the user the hardware interfaces, as for example, usb ports, audio-video outputs, etc. . . .</p>
+        <p id="p-0037" num="0038">According to another embodiment, the article <b>1</b> is free of filiform elements <b>7</b> for the transmission of signals, so it is even free of coulisse <b>6</b>, since the article <b>1</b> is apt to be connected in a wireless way to other electronic devices, as for example earphones, microphones, etc. . . .</p>
+        <p id="p-0038" num="0039">It is intended that the preceding description is purely exemplary and not limiting, therefore possible practical changes or variations are clearly intended to fall in the protective scope of the invention, as above-described and defined by the following claims.</p>
+        <?DETDESC description="Detailed Description" end="tail"?>
+    </description>
+    <us-claim-statement>What is claimed:</us-claim-statement>
+    <claims id="claims">
+        <claim id="CLM-00001" num="00001">
+            <claim-text>1. An article of clothing comprising:
+                <claim-text>a garment (<b>11</b>) configured to cover at least partially a bust of a user wearing the garment, the garment having at least one case (<b>2</b>), configured to accommodate at least one electronic device (<b>3</b>) having controls for setting functions thereof, the case (<b>2</b>) having a transparent window (<b>4</b>) for observing the electronic device disposed in said case (<b>2</b>), the transparent window being disposed adjacent the controls and being deformable so that said user can actuate said controls by acting on and deforming said window, the case (<b>2</b>) being fixed on an outer side of said garment (<b>11</b>), at the bust or upper limbs of the user, in such a position and an arrangement that the user can see the controls through the window (<b>4</b>);</claim-text>
+                <claim-text>wherein the case (<b>2</b>) has opening and closing apparatus (<b>5</b>), the case being changeable from an opening functioning arrangement in which said electronic device (<b>3</b>) can be alternately put in or taken out from the case (<b>2</b>), to a closing functioning arrangement in which the electronic device (<b>3</b>) is completely enclosed in the case (<b>2</b>), such that the electronic device is prevented from coming out accidentally therefrom;</claim-text>
+                <claim-text>the garment having a coulisse (<b>6</b>), having an interior having an inner volume which communicates with an interior of the case (<b>2</b>) by a first buttonhole (<b>61</b>), and with an exterior of the case by a second buttonhole (<b>62</b>), a filiform element (<b>7</b>) for transmitting signals therein, said coulisse (<b>6</b>) configured to accommodate the filiform element therein; and,</claim-text>
+                <claim-text>wherein said filiform element (<b>7</b>) is a cable for electrically transmitting signals, the cable provided with a waterproof coating and being made of a stainless material, the cable having a male jack (<b>71</b>) at one end and having a female jack (<b>72</b>) at another end thereof, said cable (<b>7</b>) being accommodated in the coulisse (<b>6</b>) by arranging the cable on a sleeve of the garment, an upper edge of the coulisse stitched onto the cable so that said female jack (<b>72</b>) is fixedly located at the second buttonhole (<b>62</b>), said male jack (<b>71</b>) being located inside the case (<b>2</b>), the upper edge preventing the cable from being removed accidentally from the coulisse (<b>6</b>).</claim-text>
+            </claim-text>
+        </claim>
+        <claim id="CLM-00002" num="00002">
+            <claim-text>2. The article of clothing according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the case (<b>2</b>) is made of a waterproof material.</claim-text>
+        </claim>
+        <claim id="CLM-00003" num="00003">
+            <claim-text>3. The article of clothing according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the case (<b>2</b>) is substantially sealed when in the closing functioning arrangement.</claim-text>
+        </claim>
+        <claim id="CLM-00004" num="00004">
+            <claim-text>4. The article of clothing according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said second buttonhole (<b>62</b>) is placed at a head of the user.</claim-text>
+        </claim>
+        <claim id="CLM-00005" num="00005">
+            <claim-text>5. The article of clothing according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that said interior of the coulisse (<b>6</b>) and said interior of said case (<b>2</b>) sealingly communicate with respect to each other through said first buttonhole (<b>61</b>), said coulisse (<b>6</b>) being made from a waterproof material. </claim-text>
+        </claim>
+    </claims>
+</us-patent-grant>

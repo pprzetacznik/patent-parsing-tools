@@ -23,14 +23,23 @@ class Extractor():
         tree = ET.parse(inputfile)
         root = tree.getroot()
 
-        dtdFile = tree.docinfo.internalDTD.system_url if tree.docinfo.internalDTD.system_url else 'default'
-        dtdStructure = self.structure[dtdFile]
+        try:
+            dtdFile = tree.docinfo.internalDTD.system_url
+        except Exception:
+            raise RuntimeError('File: ' + inputfile + ' has not supported xml structure')
+
+        try:
+            dtdStructure = self.structure[dtdFile]
+        except Exception:
+            raise RuntimeError('File: ' + inputfile + ' has not implemented structure (' + dtdFile + ')')
 
         patent = Patent()
         patent.documentID = root.findall(dtdStructure["documentID"])[0].text
         patent.title = root.findall(dtdStructure["inventionTitle"])[0].text
         patent.date = root.findall(dtdStructure["date"])[0].text
         description = ET.tostring(root.findall(dtdStructure["description"])[0], pretty_print=True)
+        claims = ET.tostring(root.findall(dtdStructure["abstract"])[0], pretty_print=True)
+        patent.abstract = re.sub('<[^<]+?>', '', claims)
         patent.description = re.sub('<[^<]+?>', '', description)
         claims = ET.tostring(root.findall(dtdStructure["claims"])[0], pretty_print=True)
         patent.claims = re.sub('<[^<]+?>', '', claims)

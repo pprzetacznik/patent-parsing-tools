@@ -1,15 +1,10 @@
 {
-    "default":
-        {
-            "documentID" : ".//publication-reference//document-id//doc-number",
-            "inventionTitle" : ".//us-bibliographic-data-grant//invention-title",
-            "date" : ".//application-reference//document-id//date"
-        },
     "us-patent-grant-v44-2013-05-16.dtd" :
         {
             "documentID" : ".//publication-reference//document-id//doc-number",
             "inventionTitle" : ".//us-bibliographic-data-grant//invention-title",
             "date" : ".//application-reference//document-id//date",
+            "abstract" : ".//abstract",
             "description" : ".//description",
             "claims" : ".//claims"
         }
