@@ -11,7 +11,7 @@ import os
 
 class TestExtractor(unittest.TestCase):
     def setUp(self):
-        self.extractor = Extractor('extractor_configuration.json', 'test_data')
+        self.extractor = Extractor('../extractor_configuration.json', 'test_data')
 
     def tearDown(self):
         for root, dirs, files in os.walk('test_data', topdown=False):
