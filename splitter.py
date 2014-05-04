@@ -18,7 +18,10 @@ def get_headers_and_filename(file):
 
 def split_file(input_file, dir):
     fread = open(input_file)
-    os.makedirs(dir)
+
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
+
     eof = os.fstat(fread.fileno()).st_size
     while fread.tell() < eof:
         headers, filename = get_headers_and_filename(fread)
