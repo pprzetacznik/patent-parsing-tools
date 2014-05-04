@@ -3,7 +3,7 @@
 
 import unittest
 import cPickle
-from extractor import Extractor
+from extractor import Extractor, NotSupportedDTDConfiguration
 from pprint import pprint
 import lxml.etree as ET
 import os
@@ -48,16 +48,24 @@ class TestExtractor(unittest.TestCase):
         self.assertIsNotNone(loaded_obj.description)
         self.assertIsNotNone(loaded_obj.claims)
 
-    def test_exceptions(self):
+    def test_exception_not_supported_xml_structure(self):
         inputfile = 'US08613112-noDTDFile.xml'
-        self.assertRaises(RuntimeError, self.extractor.parse_and_save_to_database, inputfile)
+        self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse_and_save_to_database, inputfile)
 
-    def test_exceptions(self):
+    def test_exception_not_implemented_dtd_structure(self):
         inputfile = 'US08613112-notSupportedDTD.xml'
-        self.assertRaises(RuntimeError, self.extractor.parse_and_save_to_database, inputfile)
+        self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse_and_save_to_database, inputfile)
 
     def test_throw_exception_and_go_through(self):
-        pass
+        try:
+            self.extractor.parse_and_save_to_database('US08613112-noDTDFile.xml')
+        except NotSupportedDTDConfiguration as r:
+            print "Catched first Exception with message: \"" + r.message + "\""
+
+        try:
+            self.extractor.parse_and_save_to_database('US08613112-notSupportedDTD.xml')
+        except NotSupportedDTDConfiguration as r:
+            print "Catched second Exception with message: \"" + r.message + "\""
 
 if __name__ == '__main__':
     unittest.main()

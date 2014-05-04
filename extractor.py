@@ -5,12 +5,19 @@ import os
 import re
 import lxml.etree as ET
 import json
-import cPickle
 from patent import Patent
 
 
+class NotSupportedDTDConfiguration(Exception):
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return repr(self.message)
+
+
 class Extractor():
-    def __init__(self, extractor_xpath_configuration, dir = "."):
+    def __init__(self, extractor_xpath_configuration, dir="."):
         self.extractor_xpath = extractor_xpath_configuration
         self.dir = dir
         if not os.path.isdir(dir):
@@ -24,26 +31,30 @@ class Extractor():
         root = tree.getroot()
 
         try:
-            dtdFile = tree.docinfo.internalDTD.system_url
-        except Exception:
-            raise RuntimeError('File: ' + inputfile + ' has not supported xml structure')
-
-        try:
-            dtdStructure = self.structure[dtdFile]
-        except Exception:
-            raise RuntimeError('File: ' + inputfile + ' has not implemented structure (' + dtdFile + ')')
+            dtdStructure = self.getDTDXpathConfiguration(inputfile, tree)
+        except NotSupportedDTDConfiguration as e:
+            raise e
 
         patent = Patent()
         patent.documentID = root.findall(dtdStructure["documentID"])[0].text
         patent.title = root.findall(dtdStructure["inventionTitle"])[0].text
         patent.date = root.findall(dtdStructure["date"])[0].text
-        description = ET.tostring(root.findall(dtdStructure["description"])[0], pretty_print=True)
-        claims = ET.tostring(root.findall(dtdStructure["abstract"])[0], pretty_print=True)
-        patent.abstract = re.sub('<[^<]+?>', '', claims)
-        patent.description = re.sub('<[^<]+?>', '', description)
-        claims = ET.tostring(root.findall(dtdStructure["claims"])[0], pretty_print=True)
-        patent.claims = re.sub('<[^<]+?>', '', claims)
+        patent.abstract = self.clean_html_tags(ET.tostring(root.findall(dtdStructure["abstract"])[0], pretty_print=True))
+        patent.description = self.clean_html_tags(ET.tostring(root.findall(dtdStructure["description"])[0], pretty_print=True))
+        patent.claims = self.clean_html_tags(ET.tostring(root.findall(dtdStructure["claims"])[0], pretty_print=True))
 
-        f = file(self.dir + '/' + root.attrib['file'] + '.save', 'wb')
-        cPickle.dump(patent, f, protocol=cPickle.HIGHEST_PROTOCOL)
-        f.close()
+        patent.serialize(self.dir + '/' + root.attrib['file'] + '.save')
+
+    def clean_html_tags(self, string):
+        return re.sub('<[^<]+?>', '', string)
+
+    def getDTDXpathConfiguration(self, inputfile, tree):
+        try:
+            dtdFile = tree.docinfo.internalDTD.system_url
+        except Exception:
+            raise NotSupportedDTDConfiguration('File: ' + inputfile + ' has not supported xml structure')
+
+        try:
+            return self.structure[dtdFile]
+        except Exception:
+            raise NotSupportedDTDConfiguration('File: ' + inputfile + ' has not implemented structure (' + dtdFile + ')')
