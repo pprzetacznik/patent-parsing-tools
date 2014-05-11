@@ -39,7 +39,7 @@ class Supervisor():
 
     def extract_data(self):
         print 'extracting data'
-        extractor = Extractor("extractor_configurator.json", self.working_dir)
+        extractor = Extractor("extractor_configuration.json", self.working_dir)
         patents = get_files(join(self.working_dir, "patents"), ".XML")
         for patent in patents:
             print "extracting", patent
