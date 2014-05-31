@@ -1,1 +1,4 @@
+*.py[cod]
 .idea
+__pycache__/
+logs/
