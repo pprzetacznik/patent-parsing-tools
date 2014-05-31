@@ -50,7 +50,7 @@ class Supervisor():
             try:
                 extractor.parse_and_save_to_database(patent)
             except Exception as e:
-                self.logger.error(e.message, e.args)
+                self.logger.error(e.message)
 
 
 def get_files(directory, type):

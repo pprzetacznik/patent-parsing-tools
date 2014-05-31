@@ -35,7 +35,7 @@ class Extractor():
         try:
             dtdStructure = self.getDTDXpathConfiguration(inputfile, tree)
         except NotSupportedDTDConfiguration as e:
-            self.logger.warning(e.message, e.args)
+            self.logger.warning(e.message)
             raise e
 
         patent = Patent()
