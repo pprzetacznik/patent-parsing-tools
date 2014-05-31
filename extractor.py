@@ -6,6 +6,7 @@ import re
 import lxml.etree as ET
 import json
 from patent import Patent
+from logger import Logger
 
 
 class NotSupportedDTDConfiguration(Exception):
@@ -25,6 +26,7 @@ class Extractor():
         json_data = open(extractor_xpath_configuration)
         self.structure = json.load(json_data)
         json_data.close()
+        self.logger = Logger().getLogger("Extractor")
 
     def parse_and_save_to_database(self, inputfile):
         tree = ET.parse(inputfile)
@@ -39,14 +41,21 @@ class Extractor():
         patent.documentID = root.findall(dtdStructure["documentID"])[0].text
         patent.title = root.findall(dtdStructure["inventionTitle"])[0].text
         patent.date = root.findall(dtdStructure["date"])[0].text
-        patent.abstract = self.clean_html_tags(ET.tostring(root.findall(dtdStructure["abstract"])[0], pretty_print=True))
-        patent.description = self.clean_html_tags(ET.tostring(root.findall(dtdStructure["description"])[0], pretty_print=True))
-        patent.claims = self.clean_html_tags(ET.tostring(root.findall(dtdStructure["claims"])[0], pretty_print=True))
+        patent.abstract = self.node_to_text(inputfile, root, dtdStructure, "abstract")
+        patent.description = self.node_to_text(inputfile, root, dtdStructure, "description")
+        patent.claims = self.node_to_text(inputfile, root, dtdStructure, "claims")
 
         patent.serialize(self.dir + '/' + root.attrib['file'] + '.save')
 
-    def clean_html_tags(self, string):
-        return re.sub('<[^<]+?>', '', string)
+    def node_to_text(self, inputfile, root, structure, filepart):
+        try:
+            node = root.findall(structure[filepart])[0]
+            text = ET.tostring(node, pretty_print=True)
+            return re.sub('<[^<]+?>', '', text)
+        except IndexError as e:
+            self.logger.warning("Node: " + filepart + " doesn't exists in file: " + inputfile)
+        return None
+
 
     def getDTDXpathConfiguration(self, inputfile, tree):
         try:
@@ -57,4 +66,5 @@ class Extractor():
         try:
             return self.structure[dtdFile]
         except Exception:
-            raise NotSupportedDTDConfiguration('File: ' + inputfile + ' has not implemented structure (' + dtdFile + ')')
+            raise NotSupportedDTDConfiguration(
+                'File: ' + inputfile + ' has not implemented structure (' + dtdFile + ')')
