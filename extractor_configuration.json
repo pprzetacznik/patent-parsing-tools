@@ -3,7 +3,10 @@
     {
         "documentID" : ".//publication-reference//document-id//doc-number",
         "inventionTitle" : ".//us-bibliographic-data-grant//invention-title",
-        "date" : ".//application-reference//document-id//date"
+        "date" : ".//application-reference//document-id//date",
+        "abstract" : ".//abstract",
+        "description" : ".//description",
+        "claims" : ".//claims"
     },
 
 
