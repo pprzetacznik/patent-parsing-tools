@@ -11,9 +11,9 @@ def get_headers_and_filename(file):
         line = file.readline()
         headers.append(line)
     node = re.match(r'.*file=.([^ ]*)\".*', headers[2])
-    if node:
-        return headers, re.match(r'.*file=.([^ ]*)\".*', headers[2]).group(1)
-    return None, None
+    if node is None:
+        raise Exception("file attribute not found")
+    return headers, node.group(1)
 
 
 def split_file(input_file, dir):
@@ -28,10 +28,6 @@ def split_file(input_file, dir):
         if filename is None:
             break
 
-        print filename
-        print headers[2]
-        print "============================================="
-
         fwrite = open(os.path.join(dir, filename), 'w')
         for line in headers: fwrite.write(line)
         while True:
@@ -45,11 +41,9 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         input = sys.argv[1]
         dir = sys.argv[2]
+        if os.path.isfile(input):
+            split_file(input, dir)
+        else:
+            print "File: " + input + " doesn't exist"
     else:
-        input = "c:\\patenty\\ipg131224\\ipg131224.xml"
-        dir = "c:\\patenty\\ipg131224\\concated"
-
-    if os.path.isfile(input):
-        split_file(input, dir)
-    else:
-        print "File: " + input + " doesn't exist"
+        print "python splitter.py [input] [output_dir]"
