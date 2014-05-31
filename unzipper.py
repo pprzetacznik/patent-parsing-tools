@@ -5,19 +5,24 @@ from zipfile import is_zipfile, ZipFile
 from sys import argv
 from os import listdir
 from os.path import join, isfile
+from logger import Logger
 
 class Unzipper():
     def __init__(self, directory):
         self.directory = directory
+        self.logger = Logger().getLogger("Uzipper")
 
     def unzip_all(self):
         zip_files = [ join(self.directory, f)
                       for f in listdir(self.directory) if is_zipfile(join(self.directory, f)) ]
         for zip_name in zip_files:
-            zip = ZipFile(zip_name)
-            if self.should_be_unzipped(zip):
-                print "unzip", zip_name
-                zip.extractall(self.directory)
+            try:
+                zip = ZipFile(zip_name)
+                if self.should_be_unzipped(zip):
+                    self.logger.info("unzip " + zip_name)
+                    zip.extractall(self.directory)
+            except Exception as e:
+                self.logger.error(e.message)
 
     def should_be_unzipped(self, zip):
         for file in zip.namelist():
