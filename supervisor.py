@@ -13,8 +13,9 @@ from logger import Logger
 
 
 class Supervisor():
-    def __init__(self, working_dir):
+    def __init__(self, working_dir, destination):
         self.working_dir = working_dir
+        self.destination = destination
         self.logger = Logger().getLogger("Supervisor")
 
     def begin(self, begin_year, end_year):
@@ -43,7 +44,7 @@ class Supervisor():
 
     def extract_data(self):
         self.logger.info("extracting data")
-        extractor = Extractor("extractor_configuration.json", self.working_dir)
+        extractor = Extractor("extractor_configuration.json", self.destination)
         patents = get_files(join(self.working_dir, "patents"), ".XML")
         for patent in patents:
             self.logger.info("extracting " + patent)
@@ -58,24 +59,25 @@ def get_files(directory, type):
 
 
 def process_args(argv):
-    dir = argv[1]
+    src = argv[1]
+    dest = argv[2]
 
-    if not os.path.isdir(dir):
-        os.makedirs(dir)
+    if not os.path.isdir(dest):
+        os.makedirs(dest)
     try:
-        begin_year = int(argv[2])
-        end_year = int(argv[3])
+        begin_year = int(argv[3])
+        end_year = int(argv[4])
     except:
         print "incorrect year"
 
-    return dir, begin_year, end_year
+    return src, dest, begin_year, end_year
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 4:
-        dir, begin_year, end_year = process_args(sys.argv)
+    if len(sys.argv) == 5:
+        src, dest, begin_year, end_year = process_args(sys.argv)
 
-        supervisor = Supervisor(dir)
+        supervisor = Supervisor(src, dest)
         supervisor.begin(begin_year, end_year)
     else:
-        print "python supervisor.py [directory] [year_from] [year_to]"
+        print "python supervisor.py [source] [destination] [year_from] [year_to]"
