@@ -7,7 +7,7 @@ from os import listdir
 from os.path import join
 from downloader import Downloader
 from unzipper import Unzipper
-import splitter
+from splitter import Splitter
 from extractor import Extractor
 from logger import Logger
 
@@ -37,6 +37,7 @@ class Supervisor():
     def split_archives(self):
         self.logger.info("splitting files")
         xmls = get_files(self.working_dir, ".xml")
+        splitter = Splitter()
         for file in xmls:
             splitter.split_file(file, join(self.working_dir, "patents"))
 
