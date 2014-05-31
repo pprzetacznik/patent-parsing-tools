@@ -35,6 +35,7 @@ class Extractor():
         try:
             dtdStructure = self.getDTDXpathConfiguration(inputfile, tree)
         except NotSupportedDTDConfiguration as e:
+            self.logger.warning(e.message, e.args)
             raise e
 
         patent = Patent()
@@ -55,7 +56,6 @@ class Extractor():
         except IndexError as e:
             self.logger.warning("Node: " + filepart + " doesn't exists in file: " + inputfile)
         return None
-
 
     def getDTDXpathConfiguration(self, inputfile, tree):
         try:

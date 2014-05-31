@@ -56,10 +56,9 @@ class TestExtractor(unittest.TestCase):
         inputfile = 'US08613112-notSupportedDTD.xml'
         self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse_and_save_to_database, inputfile)
 
-    def test_exception_lack_of_node(self):
+    def test_no_exception_when_lack_of_node(self):
         inputfile = 'US08613112-lackofnode.xml'
-        self.extractor.parse_and_save_to_database( inputfile )
-        # self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse_and_save_to_database, inputfile)
+        self.extractor.parse_and_save_to_database(inputfile)
 
     def test_throw_exception_and_go_through(self):
         try:
