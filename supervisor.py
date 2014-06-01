@@ -7,7 +7,6 @@ from os import listdir
 from os.path import join
 from downloader import Downloader
 from unzipper import Unzipper
-from splitter import Splitter
 from extractor import Extractor
 from logger import Logger
 
@@ -20,8 +19,7 @@ class Supervisor():
 
     def begin(self, begin_year, end_year):
         self.download_archives(begin_year, end_year)
-        self.unzip_archives()
-        self.split_archives()
+        self.unzip_patents()
         self.extract_data()
 
     def download_archives(self, begin_year, end_year):
@@ -30,17 +28,10 @@ class Supervisor():
         downloader = Downloader('https://www.google.com/googlebooks/uspto-patents-grants-text.html')
         downloader.download_archives(self.working_dir, begin_year, end_year)
 
-    def unzip_archives(self):
-        self.logger.info("unzipping archives")
+    def unzip_patents(self):
+        self.logger.info("unzipping patents")
         unzipper = Unzipper(self.working_dir)
         unzipper.unzip_all()
-
-    def split_archives(self):
-        self.logger.info("splitting files")
-        xmls = get_files(self.working_dir, ".xml")
-        splitter = Splitter()
-        for file in xmls:
-            splitter.split_file(file, join(self.working_dir, "patents"))
 
     def extract_data(self):
         self.logger.info("extracting data")
@@ -56,7 +47,6 @@ class Supervisor():
 
 def get_files(directory, type):
     return [join(directory, f) for f in listdir(directory) if f.endswith(type)]
-
 
 def process_args(argv):
     src = argv[1]
@@ -80,4 +70,4 @@ if __name__ == '__main__':
         supervisor = Supervisor(src, dest)
         supervisor.begin(begin_year, end_year)
     else:
-        print "python supervisor.py [source] [destination] [year_from] [year_to]"
+        print "python supervisor.py [working_directory] [destination] [year_from] [year_to]"

@@ -20,7 +20,7 @@ class Splitter:
             headers.append(line)
 
         if not headers[2].startswith('<%s' % PATENT_TAG):
-            self.logger.info("ignoring ", headers[2][1:headers[2].index(' ')])
+            self.logger.info("ignoring " + headers[2][1:headers[2].index(' ')])
             return None, None
 
         node = re.match(r'.*file=.([^ ]*)\".*', headers[2])
