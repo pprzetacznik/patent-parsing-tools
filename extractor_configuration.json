@@ -22,5 +22,13 @@
         "abstract": ".//abstract",
         "description": ".//description",
         "claims": ".//claims"
+    },
+    "us-patent-grant-v42-2006-08-23.dtd": {
+               "documentID": ".//publication-reference//document-id//doc-number",
+        "inventionTitle": ".//us-bibliographic-data-grant//invention-title",
+        "date": ".//application-reference//document-id//date",
+        "abstract": ".//abstract",
+        "description": ".//description",
+        "claims": ".//claims"
     }
 }

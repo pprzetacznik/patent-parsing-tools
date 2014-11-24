@@ -14,10 +14,12 @@ class TestExtractor(unittest.TestCase):
         self.extractor = Extractor('../extractor_configuration.json', 'test_data')
 
     def tearDown(self):
-        for root, dirs, files in os.walk('test_data', topdown=False):
-            for name in files:
-                os.remove(os.path.join(root, name))
-        os.rmdir('test_data')
+        # for root, dirs, files in os.walk('test_data', topdown=False):
+        #     for name in files:
+        #         os.remove(os.path.join(root, name))
+        # os.rmdir('test_data')
+        pass
+
 
     def test_should_load_json_file(self):
         self.assertIsNotNone(self.extractor.structure["us-patent-grant-v44-2013-05-16.dtd"]["documentID"])

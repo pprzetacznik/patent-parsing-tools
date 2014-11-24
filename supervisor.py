@@ -18,8 +18,8 @@ class Supervisor():
         self.logger = Logger().getLogger("Supervisor")
 
     def begin(self, begin_year, end_year):
-        self.download_archives(begin_year, end_year)
-        self.unzip_patents()
+        # self.download_archives(begin_year, end_year)
+        # self.unzip_patents()
         self.extract_data()
 
     def download_archives(self, begin_year, end_year):
