@@ -73,15 +73,17 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         src = sys.argv[1]
         dest = sys.argv[2]
-        dict = open("dictionary/../dictionary/myDict.txt", "r").read()
+        dict = open("/dictionary/myDict.txt", "r").read()
         bag = BagOfWords(dict)
 
         # print bag.bisection('aaron', 0, bag.dictSize)
 
         for fn in os.listdir(src):
-            patent = cPickle.load(open(src + os.sep + fn, "rb"))
-            vec = bag.parsePatent(patent)
-            if vec is not None:
-                vec.tofile(dest + os.sep + fn)
+            fname = dest + os.sep + fn
+            if not os.path.isfile(fname):   #skip vectors already created
+                patent = cPickle.load(open(src + os.sep + fn, "rb"))
+                vec = bag.parsePatent(patent)
+                if vec is not None:
+                    vec.tofile(fname)
     else:
         print "python bag_of_words.py [working_directory] [destination]"
