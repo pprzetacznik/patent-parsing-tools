@@ -1,6 +1,7 @@
 import os
 import sys
 import cPickle
+import patent
 
 from porter2 import stem
 

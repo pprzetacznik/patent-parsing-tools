@@ -2,7 +2,7 @@ __author__ = 'vreal'
 
 import re
 from nltk.corpus import stopwords
-# from bag-of-words.porter2 import stem
+# from bag_of_words.porter2 import stem
 
 
 def edit():
