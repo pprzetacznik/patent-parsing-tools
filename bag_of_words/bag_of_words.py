@@ -74,7 +74,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         src = sys.argv[1]
         dest = sys.argv[2]
-        dict = open("/dictionary/myDict.txt", "r").read()
+        dict = open("./dictionary/myDict.txt", "r").read()
         bag = BagOfWords(dict)
 
         # print bag.bisection('aaron', 0, bag.dictSize)
