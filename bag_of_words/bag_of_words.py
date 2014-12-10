@@ -9,6 +9,7 @@ from porter2 import stem
 __author__ = 'vreal'
 
 import numpy
+import cPickle
 
 class BagOfWords():
 
@@ -79,12 +80,29 @@ if __name__ == '__main__':
 
         # print bag.bisection('aaron', 0, bag.dictSize)
 
+        data = {}
+        n = 0
+
         for fn in os.listdir(src):
-            fname = dest + os.sep + fn
-            if not os.path.isfile(fname):   #skip vectors already created
-                patent = cPickle.load(open(src + os.sep + fn, "rb"))
-                vec = bag.parsePatent(patent)
-                if vec is not None:
-                    vec.tofile(fname)
+            vec_name = dest + os.sep + fn
+            # if not os.path.isfile(vec_name):   #skip vectors already created
+            patent = cPickle.load(open(src + os.sep + fn, "rb"))
+            vec = bag.parsePatent(patent)
+            if vec is not None:
+                data[vec_name] = vec
+                    # vec.tofile(fname)
+            if len(data) > 1000:
+                filename = dest + os.sep + "vectors_" + str(n)
+                print("Saving vectors to " + filename);
+                f = file(filename, 'wb')
+                cPickle.dump(data, f, protocol=cPickle.HIGHEST_PROTOCOL)
+                data = {}
+                n += 1
+        if len(data) > 0:
+                filename = dest + os.sep + "vectors_" + str(n)
+                print("Saving last " + str(len(data)) + " vectors to " + filename);
+                f = file(filename, 'wb')
+                cPickle.dump(data, f, protocol=cPickle.HIGHEST_PROTOCOL)
+
     else:
         print "python bag_of_words.py [working_directory] [destination]"
