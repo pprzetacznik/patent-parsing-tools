@@ -17,7 +17,7 @@ class BagOfWords():
     def __init__(self, dictionary):
         self.list_of_words = dictionary.split("\n")
         self.dictSize = len(self.list_of_words)
-        self.map_of_words = dict(zip(self.list_of_words, xrange(0, self.dictSize)))
+        self.map_of_words = dict(zip(self.list_of_words, xrange(0, self.dictSize))) #only for checking if words is as key in dict
 
 
     def getDictionary(self, text, dictionary = None):
@@ -35,6 +35,7 @@ class BagOfWords():
     def parsePatent(self, patent):
         try:
             if patent.title is None or patent.description is None or patent.claims is None:
+                print "patent %s have None in title, description or claims" % (patent.documentID)
                 return None
             start = time.time()
             dictionary = self.getDictionary(patent.title)
