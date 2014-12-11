@@ -46,8 +46,9 @@ class BagOfWords():
             vec = self.getVec(patent.description, vec)
             vec = self.getVec(patent.claims, vec)
             return vec
-        except:
+        except Exception as e:
             print "Problem with parsing " + patent.documentID
+            print e
 
     def validWord(self, word):
         if len(word) < 3:
