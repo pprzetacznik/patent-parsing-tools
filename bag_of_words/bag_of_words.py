@@ -2,6 +2,7 @@ import os
 import sys
 import cPickle
 import patent
+import time
 
 from porter2 import stem
 
@@ -13,23 +14,31 @@ import cPickle
 
 class BagOfWords():
 
-    def __init__(self, dict):
-        self.list_of_words = dict.split("\n")
+    def __init__(self, dictionary):
+        self.list_of_words = dictionary.split("\n")
         self.dictSize = len(self.list_of_words)
+        self.map_of_words = dict(zip(self.list_of_words, xrange(0, self.dictSize)))
 
 
-    def getVec(self, text, vec = None):
-        if vec is None:
-            vec = numpy.zeros(self.dictSize, dtype=int)
-        for i, str in enumerate(text.split()):
-            parsedWord = stem(str.lower())
-            if self.validWord(parsedWord):
+    def getDictionary(self, text, dictionary = None):
+        if dictionary is None:
+            start = time.time()
 
-                index = self.bisection(parsedWord, 0, self.dictSize)
-                if index != None:
-                    vec[index] += 1;
+            # vec = numpy.zeros(self.dictSize, dtype=int)
+            dictionary = {}
+            for word in self.list_of_words:
+                dictionary[word] = 0
+            # print time.time() - start
+        # print 'text size = ' + str(len(text.split()))
+        for _, word_from_patent in enumerate(text.split()):
+            parsedWord = stem(word_from_patent.lower())
+            if self.validWord(word_from_patent) :
+                dictionary[word_from_patent] += 1
+                # index = self.bisection(parsedWord, 0, self.dictSize)
+                # if index != None:
+                #     vec[index] += 1;
 
-        return vec
+        return dictionary
 
         # patent = Patent()
         # patent.documentID = root.findall(dtdStructure["documentID"])[0].text
@@ -44,44 +53,36 @@ class BagOfWords():
         try:
             if patent.title is None or patent.description is None or patent.claims is None:
                 return None
-            vec = self.getVec(patent.title)
-            vec = self.getVec(patent.description, vec)
-            vec = self.getVec(patent.claims, vec)
+            start = time.time()
+            dictionary = self.getDictionary(patent.title)
+            dictionary = self.getDictionary(patent.description, dictionary)
+            dictionary = self.getDictionary(patent.claims, dictionary)
+            vec = self.dictionary_to_vec(dictionary)
+            print time.time() - start
             return vec
         except Exception as e:
             print "Problem with parsing " + patent.documentID
             print e
 
-    def validWord(self, word):
-        if len(word) < 3:
-            return False
-        return True
+    def dictionary_to_vec(self, dictionary):
+        vec =  numpy.zeros(self.dictSize, dtype=int)
+        index = 0
+        for word in self.list_of_words:
+            vec[index] = dictionary[word]
+            index += 1
+        return vec
 
-    def bisection(self, looking, start, end ):
-        index = (start + end) / 2;
-        # print start, end, index
-        if start >= end:
-            # print "Nie znalazlem slowa " + looking
-            return None
-        word = self.list_of_words[index]
-        if word == looking:
-            # print looking + " ma index " + str(index)
-            return index
-        elif looking < word :
-            return self.bisection(looking, start, index)
-        else:
-            return self.bisection(looking, index + 1, end)
+    def validWord(self, word):
+        if len(word) > 2 and word in self.map_of_words:
+            return True
+        return False
 
 if __name__ == '__main__':
-
-
     if len(sys.argv) == 3:
         src = sys.argv[1]
         dest = sys.argv[2]
-        dict = open("./dictionary/myDict.txt", "r").read()
-        bag = BagOfWords(dict)
-
-        # print bag.bisection('aaron', 0, bag.dictSize)
+        dictionary = open("./dictionary/myDict.txt", "r").read()
+        bag = BagOfWords(dictionary)
 
         data = {}
         n = 0
