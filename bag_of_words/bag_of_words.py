@@ -22,32 +22,15 @@ class BagOfWords():
 
     def getDictionary(self, text, dictionary = None):
         if dictionary is None:
-            start = time.time()
-
-            # vec = numpy.zeros(self.dictSize, dtype=int)
+            # TODO making that dictionary ones and cloning it may speed up execution by 0.001s
             dictionary = {}
             for word in self.list_of_words:
                 dictionary[word] = 0
-            # print time.time() - start
-        # print 'text size = ' + str(len(text.split()))
         for _, word_from_patent in enumerate(text.split()):
             parsedWord = stem(word_from_patent.lower())
             if self.validWord(parsedWord) :
                 dictionary[parsedWord] += 1
-                # index = self.bisection(parsedWord, 0, self.dictSize)
-                # if index != None:
-                #     vec[index] += 1;
-
         return dictionary
-
-        # patent = Patent()
-        # patent.documentID = root.findall(dtdStructure["documentID"])[0].text
-        # patent.title = root.findall(dtdStructure["inventionTitle"])[0].text
-        # patent.date = root.findall(dtdStructure["date"])[0].text
-        # patent.abstract = self.node_to_text(inputfile, root, dtdStructure, "abstract")
-        # patent.description = self.node_to_text(inputfile, root, dtdStructure, "description")
-        # patent.claims = self.node_to_text(inputfile, root, dtdStructure, "claims")
-
 
     def parsePatent(self, patent):
         try:
@@ -89,7 +72,6 @@ if __name__ == '__main__':
 
         for fn in os.listdir(src):
             vec_name = dest + os.sep + fn
-            # if not os.path.isfile(vec_name):   #skip vectors already created
             patent = cPickle.load(open(src + os.sep + fn, "rb"))
             vec = bag.parsePatent(patent)
             if vec is not None:
