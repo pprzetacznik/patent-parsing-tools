@@ -32,8 +32,8 @@ class BagOfWords():
         # print 'text size = ' + str(len(text.split()))
         for _, word_from_patent in enumerate(text.split()):
             parsedWord = stem(word_from_patent.lower())
-            if self.validWord(word_from_patent) :
-                dictionary[word_from_patent] += 1
+            if self.validWord(parsedWord) :
+                dictionary[parsedWord] += 1
                 # index = self.bisection(parsedWord, 0, self.dictSize)
                 # if index != None:
                 #     vec[index] += 1;
