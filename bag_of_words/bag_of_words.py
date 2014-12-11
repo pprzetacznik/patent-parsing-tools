@@ -41,7 +41,8 @@ class BagOfWords():
             dictionary = self.getDictionary(patent.description, dictionary)
             dictionary = self.getDictionary(patent.claims, dictionary)
             vec = self.dictionary_to_vec(dictionary)
-            print time.time() - start
+            documentLength = len(patent.title) + len(patent.description) + len(patent.claims)
+            print "Parsing patent %s with %d words took %f s" % (patent.documentID, documentLength, (time.time() - start))
             return vec
         except Exception as e:
             print "Problem with parsing " + patent.documentID
