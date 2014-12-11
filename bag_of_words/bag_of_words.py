@@ -42,6 +42,8 @@ class BagOfWords():
 
     def parsePatent(self, patent):
         try:
+            if patent.title is None or patent.description is None or patent.claims is None:
+                return None
             vec = self.getVec(patent.title)
             vec = self.getVec(patent.description, vec)
             vec = self.getVec(patent.claims, vec)
