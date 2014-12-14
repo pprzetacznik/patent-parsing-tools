@@ -45,16 +45,26 @@ class Supervisor():
             self.logger.info("extracting " + patent)
             try:
                 parsed_patent = extractor.parse(patent)
-                patent_list.append(parsed_patent)
+                if is_patent_valid(parsed_patent):
+                    patent_list.append(parsed_patent)
             except Exception as e:
                 self.logger.error(e.message)
             if(len(patent_list) >= 1024):
                 f = file(self.destination + os.sep + "xml_tuple_" + str(tuple_number), 'wb')
                 tuple_number += 1
-                patent_list = []
                 cPickle.dump(patent_list, f, protocol=cPickle.HIGHEST_PROTOCOL)
+                patent_list = []
                 f.close()
 
+def is_patent_valid(patent):
+    if (patent.classification) > 0 and \
+    patent.abstract is not None and \
+    patent.title is not None and \
+    patent.description is not None and \
+    patent.claims is not None:
+        return True
+    print "patent not valid"
+    return False
 
 def get_files(directory, type):
     return [join(directory, f) for f in listdir(directory) if f.endswith(type)]
