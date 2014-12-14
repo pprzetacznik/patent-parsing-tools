@@ -22,13 +22,14 @@ def parse_text(text):
 def dump_dictionary(sorted_dictionary):
     f = open("dictionary.txt", "w")
     stop = stopwords.words('english')
-    dict_max_size = 4048
+    dict_max_size = 5000
+    n = 0
     list_of_valid_words = []
     for (word,counter) in sorted_dictionary:
         if (len(word) > 2) and (not any(ch.isdigit() for ch in word)) and (not word in stop):
             list_of_valid_words.append(word.lower())
-            dict_max_size -= 1
-            if dict_max_size < 0:
+            n +- 1
+            if n < dict_max_size:
                 my_set = set()
                 for valid_word in list_of_valid_words:
                     my_set.add(stem(valid_word))
@@ -44,7 +45,7 @@ if __name__ == '__main__':
         print "Wrong arguments"
     else:
         src = sys.argv[1]
-        
+
         max_parsed_patents = int(sys.argv[2])
         n= 0
         start = time.time()
