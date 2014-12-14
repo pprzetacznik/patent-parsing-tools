@@ -18,10 +18,10 @@ class Supervisor():
         self.destination = destination
         self.logger = Logger().getLogger("Supervisor")
 
-    def begin(self, begin_year, end_year, parsed_xml_dir = "parsed_xml_dir"):
+    def begin(self, begin_year, end_year):
         # self.download_archives(begin_year, end_year)
         # self.unzip_patents()
-        self.extract_data(parsed_xml_dir)
+        self.extract_data()
 
     def download_archives(self, begin_year, end_year):
         self.logger.info("downloading archives")
@@ -34,7 +34,7 @@ class Supervisor():
         unzipper = Unzipper(self.working_dir)
         unzipper.unzip_all()
 
-    def extract_data(self, dir):
+    def extract_data(self):
         self.logger.info("extracting data")
         extractor = Extractor("extractor_configuration.json", self.destination)
         patents = get_files(join(self.working_dir, "patents"), ".XML")
@@ -49,7 +49,7 @@ class Supervisor():
             except Exception as e:
                 self.logger.error(e.message)
             if(len(tuple) >= 1024):
-                f = file(dir + os.sep + "xml_tuple_" + str(tuple_number), 'wb')
+                f = file(self.destination + os.sep + "xml_tuple_" + str(tuple_number), 'wb')
                 tuple_number += 1
                 cPickle.dump(self, f, protocol=cPickle.HIGHEST_PROTOCOL)
                 f.close()
