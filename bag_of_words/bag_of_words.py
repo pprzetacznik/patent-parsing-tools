@@ -82,8 +82,8 @@ if __name__ == '__main__':
             for patent in patent_list:
                 vec = bag.parsePatent(patent)
                 if vec is not None:
-                    data[vec_name] = vec
-                    # data[vec_name] = [vec, patent.classification]
+                    # data[vec_name] = vec
+                    data[patent.documentID] = [vec, patent.classification]
                 if len(data) >= 1023:
                     filename = dest + os.sep + "vectors_" + str(n)
                     print("Saving vectors to " + filename);
