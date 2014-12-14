@@ -70,7 +70,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         src = sys.argv[1]
         dest = sys.argv[2]
-        dictionary = open("./dictionary/myDict.txt", "r").read()
+        dictionary = open("./dictionary/dictionary.txt", "r").read()
         bag = BagOfWords(dictionary)
 
         data = {}
