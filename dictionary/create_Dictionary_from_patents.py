@@ -28,7 +28,7 @@ def dump_dictionary(sorted_dictionary, dict_max_size):
     for (word,counter) in sorted_dictionary:
         if (len(word) > 2) and (not any(ch.isdigit() for ch in word)) and (not word in stop):
             list_of_valid_words.append(word.lower())
-            n +- 1
+            n += 1
             if n < dict_max_size:
                 my_set = set()
                 for valid_word in list_of_valid_words:
