@@ -40,10 +40,13 @@ def dump_dictionary(sorted_dictionary):
     sys.exit(0)
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2:
+    if len(sys.argv) != 3:
+        print "Wrong arguments"
+    else:
         src = sys.argv[1]
-
-        n = 0
+        
+        max_parsed_patents = int(sys.argv[2])
+        n= 0
         start = time.time()
         for fn in os.listdir(src):
             patent_list = cPickle.load(open(src + os.sep + fn, "rb"))
@@ -54,7 +57,7 @@ if __name__ == '__main__':
                 parse_text(patent.claims)
                 parse_text(patent.title)
                 n += 1
-                if n > 10:
+                if n > max_parsed_patents:
                     print "Parsing took %f s" % (time.time() - start)
                     start = time.time()
                     sorted_dictionary = sorted(word_dictionary.items(), key=operator.itemgetter(1), reverse=True)
