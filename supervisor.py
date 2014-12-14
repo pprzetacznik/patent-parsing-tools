@@ -51,7 +51,7 @@ class Supervisor():
             if(len(tuple) >= 1024):
                 f = file(self.destination + os.sep + "xml_tuple_" + str(tuple_number), 'wb')
                 tuple_number += 1
-                cPickle.dump(self, f, protocol=cPickle.HIGHEST_PROTOCOL)
+                cPickle.dump(tuple, f, protocol=cPickle.HIGHEST_PROTOCOL)
                 f.close()
 
 
