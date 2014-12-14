@@ -38,20 +38,21 @@ class Supervisor():
         self.logger.info("extracting data")
         extractor = Extractor("extractor_configuration.json", self.destination)
         patents = get_files(join(self.working_dir, "patents"), ".XML")
-        tuple = []
+        patent_list = []
         tuple_number = 1
 
         for patent in patents:
             self.logger.info("extracting " + patent)
             try:
                 parsed_patent = extractor.parse(patent)
-                tuple.append(parsed_patent)
+                patent_list.append(parsed_patent)
             except Exception as e:
                 self.logger.error(e.message)
-            if(len(tuple) >= 1024):
+            if(len(patent_list) >= 1024):
                 f = file(self.destination + os.sep + "xml_tuple_" + str(tuple_number), 'wb')
                 tuple_number += 1
-                cPickle.dump(tuple, f, protocol=cPickle.HIGHEST_PROTOCOL)
+                patent_list = []
+                cPickle.dump(patent_list, f, protocol=cPickle.HIGHEST_PROTOCOL)
                 f.close()
 
 
