@@ -25,15 +25,15 @@ def dump_dictionary(sorted_dictionary):
     dict_max_size = 4048
     list_of_valid_words = []
     for (word,counter) in sorted_dictionary:
-        if len(word) > 2 and not any(ch.isdigit() for ch in word) and not word in stop:
-            list_of_valid_words.append(word.lower() + "\n")
+        if (len(word) > 2) and (not any(ch.isdigit() for ch in word)) and (not word in stop):
+            list_of_valid_words.append(word.lower())
             dict_max_size -= 1
             if dict_max_size < 0:
                 my_set = set()
                 for valid_word in list_of_valid_words:
                     my_set.add(stem(valid_word))
                 for my_word in sorted(my_set):
-                    f.write(my_word)
+                    f.write(my_word + "\n")
                 break;
     f.close()
     print "Done"
@@ -54,7 +54,7 @@ if __name__ == '__main__':
                 parse_text(patent.claims)
                 parse_text(patent.title)
                 n += 1
-                if n > 1000:
+                if n > 10:
                     print "Parsing took %f s" % (time.time() - start)
                     start = time.time()
                     sorted_dictionary = sorted(word_dictionary.items(), key=operator.itemgetter(1), reverse=True)
