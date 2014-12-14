@@ -78,18 +78,19 @@ if __name__ == '__main__':
 
         for fn in os.listdir(src):
             vec_name = dest + os.sep + fn
-            patent = cPickle.load(open(src + os.sep + fn, "rb"))
-            vec = bag.parsePatent(patent)
-            if vec is not None:
-                data[vec_name] = vec
-                # data[vec_name] = [vec, patent.classification]
-            if len(data) >= 1000:
-                filename = dest + os.sep + "vectors_" + str(n)
-                print("Saving vectors to " + filename);
-                f = file(filename, 'wb')
-                cPickle.dump(data, f, protocol=cPickle.HIGHEST_PROTOCOL)
-                data = {}
-                n += 1
+            patent_list = cPickle.load(open(src + os.sep + fn, "rb"))
+            for patent in patent_list:
+                vec = bag.parsePatent(patent)
+                if vec is not None:
+                    data[vec_name] = vec
+                    # data[vec_name] = [vec, patent.classification]
+                if len(data) >= 1023:
+                    filename = dest + os.sep + "vectors_" + str(n)
+                    print("Saving vectors to " + filename);
+                    f = file(filename, 'wb')
+                    cPickle.dump(data, f, protocol=cPickle.HIGHEST_PROTOCOL)
+                    data = {}
+                    n += 1
         if len(data) > 0:
                 filename = dest + os.sep + "vectors_" + str(n)
                 print("Saving last " + str(len(data)) + " vectors to " + filename);
