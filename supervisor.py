@@ -5,6 +5,7 @@ import sys
 import os
 from os import listdir
 from os.path import join
+import cPickle
 from downloader import Downloader
 from unzipper import Unzipper
 from extractor import Extractor
@@ -17,10 +18,10 @@ class Supervisor():
         self.destination = destination
         self.logger = Logger().getLogger("Supervisor")
 
-    def begin(self, begin_year, end_year):
+    def begin(self, begin_year, end_year, parsed_xml_dir = "parsed_xml_dir"):
         # self.download_archives(begin_year, end_year)
         # self.unzip_patents()
-        self.extract_data()
+        self.extract_data(parsed_xml_dir)
 
     def download_archives(self, begin_year, end_year):
         self.logger.info("downloading archives")
@@ -33,16 +34,25 @@ class Supervisor():
         unzipper = Unzipper(self.working_dir)
         unzipper.unzip_all()
 
-    def extract_data(self):
+    def extract_data(self, dir):
         self.logger.info("extracting data")
         extractor = Extractor("extractor_configuration.json", self.destination)
         patents = get_files(join(self.working_dir, "patents"), ".XML")
+        tuple = []
+        tuple_number = 1
+
         for patent in patents:
             self.logger.info("extracting " + patent)
             try:
-                extractor.parse_and_save_to_database(patent)
+                parsed_patent = extractor.parse(patent)
+                tuple.append(parsed_patent)
             except Exception as e:
                 self.logger.error(e.message)
+            if(len(tuple) >= 1024):
+                f = file(dir + os.sep + "xml_tuple_" + str(tuple_number), 'wb')
+                tuple_number += 1
+                cPickle.dump(self, f, protocol=cPickle.HIGHEST_PROTOCOL)
+                f.close()
 
 
 def get_files(directory, type):

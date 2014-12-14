@@ -28,7 +28,7 @@ class Extractor():
         json_data.close()
         self.logger = Logger().getLogger("Extractor")
 
-    def parse_and_save_to_database(self, inputfile):
+    def parse(self, inputfile):
         tree = ET.parse(inputfile)
         root = tree.getroot()
 
@@ -46,7 +46,19 @@ class Extractor():
         patent.description = self.node_to_text(inputfile, root, dtdStructure, "description")
         patent.claims = self.node_to_text(inputfile, root, dtdStructure, "claims")
 
-        patent.serialize(self.dir + '/' + root.attrib['file'] + '.save')
+        section = root.findall(dtdStructure["section"])
+        clazz = root.findall(dtdStructure["class"])
+        subclass = root.findall(dtdStructure["subclass"])
+        main_group = root.findall(dtdStructure["main-group"])
+        subgroup = root.findall(dtdStructure["subgroup"])
+
+        tuple = []
+        for n in xrange(1, len(section)):
+            tuple.append([section[n].text, clazz[n].text, subclass[n].text, main_group[n].text, subgroup[n].text])
+        patent.classification = tuple
+        return patent
+
+        # patent.serialize(self.dir + '/' + root.attrib['file'] + '.save')
 
     def node_to_text(self, inputfile, root, structure, filepart):
         try:

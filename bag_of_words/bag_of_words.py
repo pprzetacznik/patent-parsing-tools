@@ -39,10 +39,14 @@ class BagOfWords():
                 return None
             start = time.time()
             dictionary = self.getDictionary(patent.title)
+            dictionary = self.getDictionary(patent.abstract, dictionary)
             dictionary = self.getDictionary(patent.description, dictionary)
             dictionary = self.getDictionary(patent.claims, dictionary)
             vec = self.dictionary_to_vec(dictionary)
             documentLength = len(patent.title) + len(patent.description) + len(patent.claims)
+            if documentLength < 1000:
+                print "Parsing patent %s with %d words is too short!" % (patent.documentID, documentLength)
+                return None
             print "Parsing patent %s with %d words took %f s" % (patent.documentID, documentLength, (time.time() - start))
             return vec
         except Exception as e:
@@ -78,8 +82,8 @@ if __name__ == '__main__':
             vec = bag.parsePatent(patent)
             if vec is not None:
                 data[vec_name] = vec
-                    # vec.tofile(fname)
-            if len(data) > 1000:
+                # data[vec_name] = [vec, patent.classification]
+            if len(data) >= 1000:
                 filename = dest + os.sep + "vectors_" + str(n)
                 print("Saving vectors to " + filename);
                 f = file(filename, 'wb')

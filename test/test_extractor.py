@@ -37,7 +37,7 @@ class TestExtractor(unittest.TestCase):
         print "Invention Title:", root.findall('.//us-bibliographic-data-grant//invention-title')[0].text
         print "Date:", root.findall('.//application-reference//document-id//date')[0].text
 
-        self.extractor.parse_and_save_to_database(inputfile)
+        self.extractor.parse(inputfile)
 
         f = file(self.extractor.dir + '/' + root.attrib['file'] + '.save', 'rb')
         loaded_obj = cPickle.load(f)
@@ -52,24 +52,24 @@ class TestExtractor(unittest.TestCase):
 
     def test_exception_not_supported_xml_structure(self):
         inputfile = 'US08613112-noDTDFile.xml'
-        self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse_and_save_to_database, inputfile)
+        self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse, inputfile)
 
     def test_exception_not_implemented_dtd_structure(self):
         inputfile = 'US08613112-notSupportedDTD.xml'
-        self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse_and_save_to_database, inputfile)
+        self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse, inputfile)
 
     def test_no_exception_when_lack_of_node(self):
         inputfile = 'US08613112-lackofnode.xml'
-        self.extractor.parse_and_save_to_database(inputfile)
+        self.extractor.parse(inputfile)
 
     def test_throw_exception_and_go_through(self):
         try:
-            self.extractor.parse_and_save_to_database('US08613112-noDTDFile.xml')
+            self.extractor.parse('US08613112-noDTDFile.xml')
         except NotSupportedDTDConfiguration as r:
             print "Catched first Exception with message: \"" + r.message + "\""
 
         try:
-            self.extractor.parse_and_save_to_database('US08613112-notSupportedDTD.xml')
+            self.extractor.parse('US08613112-notSupportedDTD.xml')
         except NotSupportedDTDConfiguration as r:
             print "Catched second Exception with message: \"" + r.message + "\""
 
