@@ -19,10 +19,10 @@ def parse_text(text):
         else:
             word_dictionary[word_from_patent] = 1
 
-def dump_dictionary(sorted_dictionary):
+def dump_dictionary(sorted_dictionary, dict_max_size):
     f = open("dictionary.txt", "w")
     stop = stopwords.words('english')
-    dict_max_size = 5000
+    #wartosc lekko z dupy, ze wzledu na stop wordy i steming odpadnie ich okolo polowy
     n = 0
     list_of_valid_words = []
     for (word,counter) in sorted_dictionary:
@@ -41,12 +41,13 @@ def dump_dictionary(sorted_dictionary):
     sys.exit(0)
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         print "Wrong arguments"
     else:
         src = sys.argv[1]
 
         max_parsed_patents = int(sys.argv[2])
+        dict_max_size = int(sys.argv[3])
         n= 0
         start = time.time()
         for fn in os.listdir(src):
@@ -63,7 +64,7 @@ if __name__ == '__main__':
                     start = time.time()
                     sorted_dictionary = sorted(word_dictionary.items(), key=operator.itemgetter(1), reverse=True)
                     print "Sorting took %f s" % (time.time() - start)
-                    dump_dictionary(sorted_dictionary)
+                    dump_dictionary(sorted_dictionary, dict_max_size)
 
 
 
