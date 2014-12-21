@@ -57,7 +57,7 @@ class Supervisor():
                 f.close()
 
 def is_patent_valid(patent):
-    if (patent.classification) > 0 and \
+    if len(patent.classification) > 0 and \
     patent.abstract is not None and \
     patent.title is not None and \
     patent.description is not None and \
