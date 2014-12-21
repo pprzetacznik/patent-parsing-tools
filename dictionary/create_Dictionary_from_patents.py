@@ -23,17 +23,12 @@ def dump_dictionary(sorted_dictionary, dict_max_size):
     f = open("dictionary.txt", "w")
     stop = stopwords.words('english')
     #wartosc lekko z dupy, ze wzledu na stop wordy i steming odpadnie ich okolo polowy
-    n = 0
-    list_of_valid_words = []
+    set_of_valid_words = set()
     for (word,counter) in sorted_dictionary:
         if (len(word) > 2) and (not any(ch.isdigit() for ch in word)) and (not word in stop):
-            list_of_valid_words.append(word.lower())
-            n += 1
-            if n > dict_max_size:
-                my_set = set()
-                for valid_word in list_of_valid_words:
-                    my_set.add(stem(valid_word))
-                for my_word in sorted(my_set):
+            set_of_valid_words.add(word.lower())
+            if len(set_of_valid_words) >= dict_max_size:
+                for my_word in sorted(set_of_valid_words):
                     f.write(my_word + "\n")
                 break;
     f.close()
@@ -43,6 +38,7 @@ def dump_dictionary(sorted_dictionary, dict_max_size):
 if __name__ == '__main__':
     if len(sys.argv) != 4:
         print "Wrong arguments"
+        print "python create_Dictionary_from_patents  src max_parsed_patents dict_max_size"
     else:
         src = sys.argv[1]
 
@@ -59,12 +55,12 @@ if __name__ == '__main__':
                 parse_text(patent.claims)
                 parse_text(patent.title)
                 n += 1
-                if n > max_parsed_patents:
-                    print "Parsing took %f s" % (time.time() - start)
-                    start = time.time()
-                    sorted_dictionary = sorted(word_dictionary.items(), key=operator.itemgetter(1), reverse=True)
-                    print "Sorting took %f s" % (time.time() - start)
-                    dump_dictionary(sorted_dictionary, dict_max_size)
+                if n > max_parsed_patents:#6,7s dla stem tylko dla topu, 368s dla wszystkich
+                    break
 
-
+        print "Parsing took %f s" % (time.time() - start)
+        start = time.time()
+        sorted_dictionary = sorted(word_dictionary.items(), key=operator.itemgetter(1), reverse=True)
+        print "Sorting took %f s" % (time.time() - start)
+        dump_dictionary(sorted_dictionary, dict_max_size)
 
