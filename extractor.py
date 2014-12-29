@@ -52,10 +52,10 @@ class Extractor():
         main_group = root.findall(dtdStructure["main-group"])
         subgroup = root.findall(dtdStructure["subgroup"])
 
-        tuple = []
+        list_of_patent_classes = []
         for n in xrange(1, len(section)):
-            tuple.append([section[n].text, clazz[n].text, subclass[n].text, main_group[n].text, subgroup[n].text])
-        patent.classification = tuple
+            list_of_patent_classes.append([section[n].text, clazz[n].text, subclass[n].text, main_group[n].text, subgroup[n].text])
+        patent.classification = list_of_patent_classes
         return patent
 
         # patent.serialize(self.dir + '/' + root.attrib['file'] + '.save')

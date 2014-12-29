@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
-
+from random import randint
 import sys
 import os
 from os import listdir
@@ -13,9 +13,10 @@ from logger import Logger
 
 
 class Supervisor():
-    def __init__(self, working_dir, destination):
+    def __init__(self, working_dir, train_destination, test_destination):
         self.working_dir = working_dir
-        self.destination = destination
+        self.train_destination = train_destination
+        self.test_destination = test_destination
         self.logger = Logger().getLogger("Supervisor")
 
     def begin(self, begin_year, end_year):
@@ -36,12 +37,15 @@ class Supervisor():
 
     def extract_data(self):
         self.logger.info("extracting data")
-        extractor = Extractor("extractor_configuration.json", self.destination)
+        extractor = Extractor("extractor_configuration.json", self.train_destination)
         patents = get_files(join(self.working_dir, "patents"), ".XML")
-        patent_list = []
-        tuple_number = 1
+        train_patent_list = []
+        test_patent_list = []
+        test_list_number = 1
+        train_list_number = 1
         num_of_valid_patents = 0
         num_of_unvalid_patents = 0
+        total_number_of_test_patents = 0
 
         for patent in patents:
             self.logger.info("extracting " + patent)
@@ -49,19 +53,33 @@ class Supervisor():
                 parsed_patent = extractor.parse(patent)
                 if self.is_patent_valid(parsed_patent):
                     num_of_valid_patents += 1
-                    patent_list.append(parsed_patent)
+                    if randint(1, 10) == 10: # 10% szansy
+                        test_patent_list.append(parsed_patent)
+                        total_number_of_test_patents += 1
+                    else:
+                        train_patent_list.append(parsed_patent)
                 else:
                     num_of_unvalid_patents += 1
             except Exception as e:
                 self.logger.error(e.message)
-            if(len(patent_list) >= 1024):
-                f = file(self.destination + os.sep + "xml_tuple_" + str(tuple_number), 'wb')
-                tuple_number += 1
-                cPickle.dump(patent_list, f, protocol=cPickle.HIGHEST_PROTOCOL)
-                patent_list = []
-                f.close()
+            if(len(test_patent_list) >= 500):
+                self.save_list(test_patent_list, test_list_number, self.test_destination)
+                test_list_number += 1
+            if(len(train_patent_list) >= 500):
+                self.save_list(train_patent_list, train_list_number, self.train_destination)
+                train_list_number += 1
                 print "Number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
+        self.save_list(test_patent_list, test_list_number, self.test_destination)
+        self.save_list(train_patent_list, train_list_number, self.train_destination)
         print "Final number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
+        print "Total number of test examples is %d" % (total_number_of_test_patents)
+
+
+    def save_list(self, patent_list, patent_list_number, patent_list_destination):
+        f = file(patent_list_destination + os.sep + "xml_tuple_" + str(patent_list_number), 'wb')
+        cPickle.dump(patent_list, f, protocol=cPickle.HIGHEST_PROTOCOL)
+        del patent_list[:]
+        f.close()
 
     def is_patent_valid(self, patent):
         if patent is not None and \
@@ -79,24 +97,28 @@ def get_files(directory, type):
 
 def process_args(argv):
     src = argv[1]
-    dest = argv[2]
+    train_dest = argv[2]
+    test_dest = argv[3]
 
-    if not os.path.isdir(dest):
-        os.makedirs(dest)
+    if not os.path.isdir(train_dest):
+        os.makedirs(train_dest)
+
+    if not os.path.isdir(test_dest):
+        os.makedirs(test_dest)
     try:
-        begin_year = int(argv[3])
-        end_year = int(argv[4])
+        begin_year = int(argv[4])
+        end_year = int(argv[5])
     except:
         print "incorrect year"
 
-    return src, dest, begin_year, end_year
+    return src, train_dest, test_dest, begin_year, end_year
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 5:
-        src, dest, begin_year, end_year = process_args(sys.argv)
+    if len(sys.argv) == 6:
+        src, train_dest, test_dest, begin_year, end_year = process_args(sys.argv)
 
-        supervisor = Supervisor(src, dest)
+        supervisor = Supervisor(src, train_dest, test_dest)
         supervisor.begin(begin_year, end_year)
     else:
-        print "python supervisor.py [working_directory] [destination] [year_from] [year_to]"
+        print "python supervisor.py [working_directory] [train_destination] [test_destination] [year_from] [year_to]"
