@@ -62,10 +62,10 @@ class Supervisor():
                     num_of_unvalid_patents += 1
             except Exception as e:
                 self.logger.error(e.message)
-            if(len(test_patent_list) >= 500):
+            if(len(test_patent_list) >= 1024):
                 self.save_list(test_patent_list, test_list_number, self.test_destination)
                 test_list_number += 1
-            if(len(train_patent_list) >= 500):
+            if(len(train_patent_list) >= 1024):
                 self.save_list(train_patent_list, train_list_number, self.train_destination)
                 train_list_number += 1
                 print "Number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)

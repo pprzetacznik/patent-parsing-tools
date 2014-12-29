@@ -81,7 +81,7 @@ if __name__ == '__main__':
             patent_list = cPickle.load(open(src + os.sep + fn, "rb"))
             for patent in patent_list:
                 vec = bag.parsePatent(patent)
-                if vec is not None and patent.classification is not None:
+                if vec is not None and patent.classification:
                     # data[vec_name] = vec
                     data[patent.documentID] = [vec, patent.classification]
                 if len(data) >= 1024:
