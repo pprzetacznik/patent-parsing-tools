@@ -40,13 +40,18 @@ class Supervisor():
         patents = get_files(join(self.working_dir, "patents"), ".XML")
         patent_list = []
         tuple_number = 1
+        num_of_valid_patents = 0
+        num_of_unvalid_patents = 0
 
         for patent in patents:
             self.logger.info("extracting " + patent)
             try:
                 parsed_patent = extractor.parse(patent)
-                if is_patent_valid(parsed_patent):
+                if self.is_patent_valid(parsed_patent):
+                    num_of_valid_patents += 1
                     patent_list.append(parsed_patent)
+                else:
+                    num_of_unvalid_patents += 1
             except Exception as e:
                 self.logger.error(e.message)
             if(len(patent_list) >= 1024):
@@ -55,16 +60,19 @@ class Supervisor():
                 cPickle.dump(patent_list, f, protocol=cPickle.HIGHEST_PROTOCOL)
                 patent_list = []
                 f.close()
+                print "Number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
+        print "Final number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
 
-def is_patent_valid(patent):
-    if len(patent.classification) > 0 and \
-    patent.abstract is not None and \
-    patent.title is not None and \
-    patent.description is not None and \
-    patent.claims is not None:
-        return True
-    print "patent not valid"
-    return False
+    def is_patent_valid(self, patent):
+        if patent is not None and \
+            len(patent.classification) > 0 and \
+            patent.abstract is not None and \
+            patent.title is not None and \
+            patent.description is not None and \
+            patent.claims is not None:
+            return True
+        self.logger.warn("patent not valid")
+        return False
 
 def get_files(directory, type):
     return [join(directory, f) for f in listdir(directory) if f.endswith(type)]
