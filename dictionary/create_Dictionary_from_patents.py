@@ -28,9 +28,8 @@ def dump_dictionary(sorted_dictionary, dict_max_size, dictionary_name):
         if (len(word) > 2) and (not any(ch.isdigit() for ch in word)) and (not word in stop):
             set_of_valid_words.add(stem(word.lower()))
             if len(set_of_valid_words) >= dict_max_size:
-                for my_word in sorted(set_of_valid_words):
-                    f.write(my_word + "\n")
-                break;
+                f.write('\n'.join(set_of_valid_words))
+                break
     f.close()
     print "Done"
     sys.exit(0)
