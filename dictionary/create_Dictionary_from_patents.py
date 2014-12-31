@@ -5,7 +5,7 @@ import operator
 import re
 import time
 from nltk.corpus import stopwords
-from porter2 import stem
+from stemming.porter2 import stem
 
 __author__ = 'vreal'
 

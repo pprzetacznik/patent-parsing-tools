@@ -3,8 +3,7 @@ import sys
 import cPickle
 import patent
 import time
-
-from porter2 import stem
+from stemming.porter2 import stem
 
 
 __author__ = 'vreal'
