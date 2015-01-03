@@ -17,13 +17,15 @@ class Unzipper():
     def unzip_all(self):
         zip_files = [ join(self.working_directory, f)
                       for f in listdir(self.working_directory) if is_zipfile(join(self.working_directory, f)) ]
+        num = 0
         for zip_name in zip_files:
             try:
                 zip = ZipFile(zip_name)
                 if self.should_be_unzipped(zip):
                     self.logger.info("unzip " + zip_name)
                     zip.extractall(self.temp_dir)
-                self.split_patents(self.temp_dir)
+                self.split_patents(self.temp_dir, num)
+                num += 1
                 self.clear_temp()
             except Exception as e:
                 self.logger.error(e.message)
@@ -34,12 +36,14 @@ class Unzipper():
                 return True
         return False
 
-    def split_patents(self, temp_dir):
+    def split_patents(self, temp_dir, num):
         self.logger.info("splitting files")
         xmls = get_files(temp_dir, ".xml")
         splitter = Splitter()
+
         for file in xmls:
-            splitter.split_file(file, join(self.working_directory, "patents"))
+            splitter.split_file(file, join(self.working_directory, "patents", str(num)))
+
 
     def clear_temp(self):
         for file in listdir(self.temp_dir):

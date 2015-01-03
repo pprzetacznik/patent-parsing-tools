@@ -97,7 +97,16 @@ class Supervisor():
         return False
 
 def get_files(directory, type):
-    return [join(directory, f) for f in listdir(directory) if f.endswith(type)]
+    l = []
+    for d in listdir(directory):
+        if d.endswith(type):
+            l.append(join(directory, d))
+        else:
+            for f in listdir(join(directory, d)):
+                if f.endswith(type):
+                    l.append(join(directory, d, f))
+    return l        # sorry for ugly code, run of time
+    # return [join(directory, f) for f in listdir(directory) if f.endswith(type)]
 
 def process_args(argv):
     src = argv[1]
