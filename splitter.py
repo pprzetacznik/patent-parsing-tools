@@ -12,6 +12,7 @@ PATENT_TAG = 'us-patent-grant'
 class Splitter:
     def __init__(self):
         self.logger = Logger().getLogger("Splitter")
+        self.num_ignored = 0
 
     def get_headers_and_filename(self, file):
         headers = []
@@ -20,7 +21,8 @@ class Splitter:
             headers.append(line)
 
         if not headers[2].startswith('<%s' % PATENT_TAG):
-            self.logger.info("ignoring " + headers[2][1:headers[2].index(' ')])
+            self.logger.info(str(self.num_ignored) + ". ignoring " + headers[2][1:headers[2].index(' ')])
+            self.num_ignored += 1
             return None, None
 
         node = re.match(r'.*file=.([^ ]*)\".*', headers[2])
