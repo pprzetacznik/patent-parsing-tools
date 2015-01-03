@@ -59,7 +59,7 @@ class Splitter:
             if filename is None:
                 self.ingore_file(fread)
                 continue
-                print "Saving splitted file %s" % (filename)
+            print "Saving splitted file %s" % (filename)
             self.save_file(dir, filename, fread, headers)
 
 if __name__ == '__main__':
