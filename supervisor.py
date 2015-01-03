@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
-from random import randint
+from random import randint, shuffle
 import sys
 import os
 from os import listdir
@@ -41,8 +41,6 @@ class Supervisor():
         patents = get_files(join(self.working_dir, "patents"), ".XML")
         train_patent_list = []
         test_patent_list = []
-        test_list_number = 1
-        train_list_number = 1
         num_of_valid_patents = 0
         num_of_unvalid_patents = 0
         total_number_of_test_patents = 0
@@ -62,24 +60,28 @@ class Supervisor():
                     num_of_unvalid_patents += 1
             except Exception as e:
                 self.logger.error(e.message)
-            if(len(test_patent_list) >= 1024):
-                self.save_list(test_patent_list, test_list_number, self.test_destination)
-                test_list_number += 1
-            if(len(train_patent_list) >= 1024):
-                self.save_list(train_patent_list, train_list_number, self.train_destination)
-                train_list_number += 1
                 print "Number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
-        self.save_list(test_patent_list, test_list_number, self.test_destination)
-        self.save_list(train_patent_list, train_list_number, self.train_destination)
+        self.save_list(test_patent_list, self.test_destination)
+        self.save_list(train_patent_list, self.train_destination)
         print "Final number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
         print "Total number of test examples is %d" % (total_number_of_test_patents)
 
 
-    def save_list(self, patent_list, patent_list_number, patent_list_destination):
-        f = file(patent_list_destination + os.sep + "xml_tuple_" + str(patent_list_number), 'wb')
-        cPickle.dump(patent_list, f, protocol=cPickle.HIGHEST_PROTOCOL)
+    def save_list(self, patent_list, patent_list_destination):
+        shuffle(patent_list)
+        ind = 0
+        patent_list_number = 1
+        while ind < len(patent_list):
+            f = file(patent_list_destination + os.sep + "xml_tuple_" + str(patent_list_number), 'wb')
+            if ind + 1023 > len(patent_list):
+                cPickle.dump(patent_list[ind:], f, protocol=cPickle.HIGHEST_PROTOCOL)
+            else:
+                cPickle.dump(patent_list[ind, ind + 1023], f, protocol=cPickle.HIGHEST_PROTOCOL)
+            f.close()
+            patent_list_number += 1
+            ind += 1024
         del patent_list[:]
-        f.close()
+
 
     def is_patent_valid(self, patent):
         if patent is not None and \
