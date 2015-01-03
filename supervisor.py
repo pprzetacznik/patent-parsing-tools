@@ -51,6 +51,8 @@ class Supervisor():
                 parsed_patent = extractor.parse(patent)
                 if self.is_patent_valid(parsed_patent):
                     num_of_valid_patents += 1
+                    if len(test_patent_list) % 1000 == 0:
+                        print "train_patent_list ma dlugosc %d" % (len(train_patent_list))
                     if randint(1, 10) == 10: # 10% szansy
                         test_patent_list.append(parsed_patent)
                         total_number_of_test_patents += 1
@@ -76,7 +78,7 @@ class Supervisor():
             if ind + 1023 > len(patent_list):
                 cPickle.dump(patent_list[ind:], f, protocol=cPickle.HIGHEST_PROTOCOL)
             else:
-                cPickle.dump(patent_list[ind, ind + 1023], f, protocol=cPickle.HIGHEST_PROTOCOL)
+                cPickle.dump(patent_list[ind: ind + 1023], f, protocol=cPickle.HIGHEST_PROTOCOL)
             f.close()
             patent_list_number += 1
             ind += 1024
