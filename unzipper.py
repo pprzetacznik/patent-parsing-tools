@@ -27,7 +27,7 @@ class Unzipper():
                 self.split_patents(self.temp_dir, splitext(basename(zip_name))[0])
                 self.clear_temp()
             except Exception as e:
-                self.logger.error(e.message)
+                self.logger.error(e)
 
     def should_be_unzipped(self, zip):
         if path.exists(join(self.working_directory, self.patentDir, splitext(basename(zip.filename))[0])):
