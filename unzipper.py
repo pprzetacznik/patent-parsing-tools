@@ -30,6 +30,8 @@ class Unzipper():
                 self.logger.error(e.message)
 
     def should_be_unzipped(self, zip):
+        if path.exists(join(self.working_directory, self.patentDir, splitext(basename(zip.filename))[0])):
+            return False
         for file in zip.namelist():
             if not isfile(join(self.working_directory, file)):
                 return True
