@@ -48,6 +48,10 @@ class Splitter:
                 break
 
     def split_file(self, input_file, dir):
+        if os.path.exists(dir):
+            print "Skipping directory " + dir
+            return
+
         fread = open(input_file)
 
         if not os.path.isdir(dir):
