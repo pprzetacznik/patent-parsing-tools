@@ -46,7 +46,7 @@ class Supervisor():
         total_number_of_test_patents = 0
 
         for patent in patents:
-            self.logger.info("extracting " + patent)
+            # self.logger.info("extracting " + patent)
             try:
                 parsed_patent = extractor.parse(patent)
                 if self.is_patent_valid(parsed_patent):
