@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
+
 from random import randint, shuffle
 import sys
 import os
@@ -10,14 +11,14 @@ from downloader import Downloader
 from unzipper import Unzipper
 from extractor import Extractor
 from logger import Logger
+from utils.log import log
 
-
+@log
 class Supervisor():
     def __init__(self, working_dir, train_destination, test_destination):
         self.working_dir = working_dir
         self.train_destination = train_destination
         self.test_destination = test_destination
-        self.logger = Logger().getLogger("Supervisor")
 
     def begin(self, begin_year, end_year):
         self.download_archives(begin_year, end_year)
