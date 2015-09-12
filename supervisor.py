@@ -10,7 +10,6 @@ import cPickle
 from downloader import Downloader
 from unzipper import Unzipper
 from extractor import Extractor
-from logger import Logger
 from utils.log import log
 
 @log
@@ -19,6 +18,13 @@ class Supervisor():
         self.working_dir = working_dir
         self.train_destination = train_destination
         self.test_destination = test_destination
+        self.__create_directory_if_not_exists(self.working_dir)
+        self.__create_directory_if_not_exists(self.train_destination)
+        self.__create_directory_if_not_exists(self.test_destination)
+
+    def __create_directory_if_not_exists(self, path):
+        if not os.path.exists(path):
+            os.makedirs(path)
 
     def begin(self, begin_year, end_year):
         self.download_archives(begin_year, end_year)
@@ -47,7 +53,7 @@ class Supervisor():
         total_number_of_test_patents = 0
 
         for patent in patents:
-            # self.logger.info("extracting " + patent)
+            self.logger.info("extracting " + patent)
             try:
                 parsed_patent = extractor.parse(patent)
                 if self.is_patent_valid(parsed_patent):
@@ -106,33 +112,28 @@ def get_files(directory, type):
             for f in listdir(join(directory, d)):
                 if f.endswith(type):
                     l.append(join(directory, d, f))
-    return l        # sorry for ugly code, run of time
-    # return [join(directory, f) for f in listdir(directory) if f.endswith(type)]
+    return l
 
 def process_args(argv):
-    src = argv[1]
+    working_directory = argv[1]
     train_dest = argv[2]
     test_dest = argv[3]
 
-    if not os.path.isdir(train_dest):
-        os.makedirs(train_dest)
-
-    if not os.path.isdir(test_dest):
-        os.makedirs(test_dest)
     try:
         begin_year = int(argv[4])
         end_year = int(argv[5])
     except:
         print "incorrect year"
 
-    return src, train_dest, test_dest, begin_year, end_year
+    return working_directory, train_dest, test_dest, begin_year, end_year
 
 
 if __name__ == '__main__':
     if len(sys.argv) == 6:
-        src, train_dest, test_dest, begin_year, end_year = process_args(sys.argv)
+        working_directory, train_dest, test_dest, begin_year, end_year = process_args(sys.argv)
 
-        supervisor = Supervisor(src, train_dest, test_dest)
+        supervisor = Supervisor(working_directory, train_dest, test_dest)
         supervisor.begin(begin_year, end_year)
     else:
         print "python supervisor.py [working_directory] [train_destination] [test_destination] [year_from] [year_to]"
+

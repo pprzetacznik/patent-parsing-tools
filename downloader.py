@@ -7,7 +7,9 @@ import urllib
 import urllib2
 import sys
 from lxml import etree
+from utils.log import log
 
+@log
 class Downloader():
 
     URLS_XPATH='//a/@href'
@@ -19,13 +21,13 @@ class Downloader():
         urls = self.get_urls(begin_year, end_year)
         for url in urls:
             filename = os.path.basename(url)
-            print filename
+            self.logger.info(filename)
             local_file = os.path.join(directory, filename)
             if not os.path.isfile(local_file):
                 urllib.urlretrieve(url, local_file)
-                print "   downloaded"
+                self.logger.info("   downloaded")
             else:
-                print "   file already exists"
+                self.logger.info("   file already exists")
 
     def get_urls(self, begin_year, end_year):
         content = self.get_base_url_content()
