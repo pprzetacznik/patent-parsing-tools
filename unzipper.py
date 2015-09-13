@@ -6,13 +6,13 @@ from sys import argv
 from os import *
 from os.path import *
 from splitter import Splitter
-from logger import Logger
+from utils.log import log
 
-class Unzipper():
+@log
+class Unzipper:
     def __init__(self, directory):
         self.working_directory = directory
         self.temp_dir = join(directory, "temp")
-        self.logger = Logger().getLogger("Uzipper")
         self.patentDir = "patents"
 
     def unzip_all(self):
@@ -45,7 +45,6 @@ class Unzipper():
         for file in xmls:
             splitter.split_file(file, join(self.working_directory, self.patentDir, filename))
 
-
     def clear_temp(self):
         for file in listdir(self.temp_dir):
             file_path = join(self.temp_dir, file)
@@ -53,7 +52,7 @@ class Unzipper():
                 if isfile(file_path):
                     unlink(file_path)
             except Exception, e:
-                print e
+                self.logger.info(e)
 
 
 def get_files(directory, type):
@@ -66,3 +65,4 @@ if __name__ == '__main__':
         unzipper.unzip_all()
     else:
         print "python unzipper.py [directory]"
+

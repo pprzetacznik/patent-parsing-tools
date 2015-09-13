@@ -33,7 +33,6 @@ class Supervisor():
 
     def download_archives(self, begin_year, end_year):
         self.logger.info("downloading archives")
-        print 'downloading archives'
         downloader = Downloader('https://www.google.com/googlebooks/uspto-patents-grants-text.html')
         downloader.download_archives(self.working_dir, begin_year, end_year)
 
@@ -59,7 +58,7 @@ class Supervisor():
                 if self.is_patent_valid(parsed_patent):
                     num_of_valid_patents += 1
                     if len(test_patent_list) % 1000 == 0:
-                        print "train_patent_list ma dlugosc %d" % (len(train_patent_list))
+                        self.logger.info("train_patent_list has length %d" % (len(train_patent_list)))
                     if randint(1, 10) == 10: # 10% szansy
                         test_patent_list.append(parsed_patent)
                         total_number_of_test_patents += 1
@@ -69,11 +68,11 @@ class Supervisor():
                     num_of_unvalid_patents += 1
             except Exception as e:
                 self.logger.error(e.message)
-                print "Number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
+                self.logger.error("Number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents))
         self.save_list(test_patent_list, self.test_destination)
         self.save_list(train_patent_list, self.train_destination)
-        print "Final number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents)
-        print "Total number of test examples is %d" % (total_number_of_test_patents)
+        self.logger.info("Final number of valid patents was %d, number of unvalid patents was %d" % (num_of_valid_patents, num_of_unvalid_patents))
+        self.logger.info("Total number of test examples is %d" % (total_number_of_test_patents))
 
 
     def save_list(self, patent_list, patent_list_destination):

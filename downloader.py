@@ -10,7 +10,7 @@ from lxml import etree
 from utils.log import log
 
 @log
-class Downloader():
+class Downloader:
 
     URLS_XPATH='//a/@href'
 

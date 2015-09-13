@@ -6,8 +6,7 @@ import re
 import lxml.etree as ET
 import json
 from patent import Patent
-from logger import Logger
-
+from utils.log import log
 
 class NotSupportedDTDConfiguration(Exception):
     def __init__(self, message):
@@ -16,8 +15,8 @@ class NotSupportedDTDConfiguration(Exception):
     def __str__(self):
         return repr(self.message)
 
-
-class Extractor():
+@log
+class Extractor:
     def __init__(self, extractor_xpath_configuration, dir="."):
         self.extractor_xpath = extractor_xpath_configuration
         self.dir = dir
@@ -26,7 +25,6 @@ class Extractor():
         json_data = open(extractor_xpath_configuration)
         self.structure = json.load(json_data)
         json_data.close()
-        self.logger = Logger().getLogger("Extractor")
 
     def parse(self, inputfile):
         tree = ET.parse(inputfile)

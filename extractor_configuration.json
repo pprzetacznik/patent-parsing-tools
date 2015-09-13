@@ -13,6 +13,20 @@
         "description": ".//description",
         "claims": ".//claims"
     },
+    "us-patent-grant-v42-2006-08-23.dtd": {
+        "documentID": ".//publication-reference//document-id//doc-number",
+        "inventionTitle": ".//us-bibliographic-data-grant//invention-title",
+        "ipcr": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr",
+        "section": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr//section",
+        "class": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr//class",
+        "subclass": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr//subclass",
+        "main-group": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr//main-group",
+        "subgroup": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr//subgroup",
+        "date": ".//application-reference//document-id//date",
+        "abstract": ".//abstract",
+        "description": ".//description",
+        "claims": ".//claims"
+    },
     "us-patent-grant-v43-2012-12-04.dtd": {
         "documentID": ".//publication-reference//document-id//doc-number",
         "inventionTitle": ".//us-bibliographic-data-grant//invention-title",
@@ -41,8 +55,8 @@
         "description": ".//description",
         "claims": ".//claims"
     },
-    "us-patent-grant-v42-2006-08-23.dtd": {
-               "documentID": ".//publication-reference//document-id//doc-number",
+    "us-patent-grant-v45-2014-04-03.dtd": {
+        "documentID": ".//publication-reference//document-id//doc-number",
         "inventionTitle": ".//us-bibliographic-data-grant//invention-title",
         "ipcr": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr",
         "section": ".//us-bibliographic-data-grant//classifications-ipcr//classification-ipcr//section",

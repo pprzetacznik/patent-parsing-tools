@@ -4,14 +4,13 @@
 import os
 import re
 import sys
-from logger import Logger
+from utils.log import log
 
-PATENT_TAG = 'us-patent-grant'
-
-
+@log
 class Splitter:
+    PATENT_TAG = 'us-patent-grant'
+
     def __init__(self):
-        self.logger = Logger().getLogger("Splitter")
         self.num_ignored = 0
 
     def get_headers_and_filename(self, file):
@@ -20,7 +19,7 @@ class Splitter:
             line = file.readline()
             headers.append(line)
 
-        if not headers[2].startswith('<%s' % PATENT_TAG):
+        if not headers[2].startswith('<%s' % self.PATENT_TAG):
             self.logger.info(str(self.num_ignored) + ". ignoring " + headers[2][1:headers[2].index(' ')])
             self.num_ignored += 1
             return None, None
@@ -34,7 +33,7 @@ class Splitter:
     def ingore_file(self, fread):
         while True:
             line = fread.readline()
-            if line.startswith('</%s' % PATENT_TAG):
+            if line.startswith('</%s' % self.PATENT_TAG):
                 break
 
     def save_file(self, dir, filename, fread, headers):
@@ -44,12 +43,12 @@ class Splitter:
         while True:
             line = fread.readline()
             fwrite.write(line)
-            if line.startswith('</%s' % PATENT_TAG):
+            if line.startswith('</%s' % self.PATENT_TAG):
                 break
 
     def split_file(self, input_file, dir):
         if os.path.exists(dir):
-            print "Skipping directory " + dir
+            self.logger.info("Skipping directory " + dir)
             return
 
         fread = open(input_file)
@@ -63,7 +62,7 @@ class Splitter:
             if filename is None:
                 self.ingore_file(fread)
                 continue
-            print "Saving splitted file %s" % (filename)
+            self.logger.info("Saving splitted file %s" % (filename))
             self.save_file(dir, filename, fread, headers)
 
 if __name__ == '__main__':
@@ -77,3 +76,4 @@ if __name__ == '__main__':
             print "File: " + input + " doesn't exist"
     else:
         print "python splitter.py [input] [output_dir]"
+
