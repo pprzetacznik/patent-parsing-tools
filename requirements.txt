@@ -1,4 +1,3 @@
 lxml
 nltk
-hg+ssh://hg@bitbucket.org/mchaput/stemming
-
+stemming

@@ -7,7 +7,7 @@ import urllib
 import urllib2
 import sys
 from lxml import etree
-from utils.log import log
+from patent_parsing_tools.utils.log import log
 
 @log
 class Downloader:

@@ -1,5 +1,5 @@
 from unittest import TestCase
-from downloader import Downloader
+from patent_parsing_tools.downloader import Downloader
 
 class TestDownloader(TestCase):
     def test_url_matcher_matches_url_from_given_period(self):

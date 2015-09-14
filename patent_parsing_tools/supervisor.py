@@ -7,10 +7,10 @@ import os
 from os import listdir
 from os.path import join
 import cPickle
-from downloader import Downloader
-from unzipper import Unzipper
-from extractor import Extractor
-from utils.log import log
+from patent_parsing_tools.downloader import Downloader
+from patent_parsing_tools.unzipper import Unzipper
+from patent_parsing_tools.extractor import Extractor
+from patent_parsing_tools.utils.log import log
 
 @log
 class Supervisor():
@@ -43,7 +43,7 @@ class Supervisor():
 
     def extract_data(self):
         self.logger.info("extracting data")
-        extractor = Extractor("extractor_configuration.json", self.train_destination)
+        extractor = Extractor(self.train_destination)
         patents = get_files(join(self.working_dir, "patents"), ".XML")
         train_patent_list = []
         test_patent_list = []

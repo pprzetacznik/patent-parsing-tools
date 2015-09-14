@@ -3,15 +3,16 @@
 
 import unittest
 import cPickle
-from extractor import Extractor, NotSupportedDTDConfiguration
+from patent_parsing_tools.extractor import Extractor, NotSupportedDTDConfiguration
 from pprint import pprint
 import lxml.etree as ET
 import os
+from pkg_resources import resource_filename
 
 
 class TestExtractor(unittest.TestCase):
     def setUp(self):
-        self.extractor = Extractor('extractor_configuration.json', 'test_data')
+        self.extractor = Extractor("test_data")
 
     def tearDown(self):
         pass
@@ -21,7 +22,7 @@ class TestExtractor(unittest.TestCase):
         pprint(self.extractor.structure)
 
     def test_xpaths(self):
-        inputfile = 'test/US08613112-20131224.XML'
+        inputfile = resource_filename("patent_parsing_tools.tests", "US08613112-20131224.XML")
 
         tree = ET.parse(inputfile)
         root = tree.getroot()
@@ -42,10 +43,10 @@ class TestExtractor(unittest.TestCase):
         self.assertIsNotNone(patent.claims)
 
     def test_xml_structures(self):
-        inputfiles = ["test/US08613112-20131224.XML",
-                     "test/US08927386-20150106.XML"]
+        inputfiles = ["US08613112-20131224.XML",
+                     "US08927386-20150106.XML"]
         for inputfile in inputfiles:
-            patent = self.extractor.parse(inputfile)
+            patent = self.extractor.parse(resource_filename("patent_parsing_tools.tests", inputfile))
             self.assertIsNotNone(patent.documentID)
             self.assertIsNotNone(patent.title)
             self.assertIsNotNone(patent.date)
@@ -54,25 +55,26 @@ class TestExtractor(unittest.TestCase):
             self.assertIsNotNone(patent.claims)
 
     def test_exception_not_supported_xml_structure(self):
-        inputfile = 'test/US08613112-noDTDFile.XML'
+        inputfile = resource_filename("patent_parsing_tools.tests", "US08613112-noDTDFile.XML")
         self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse, inputfile)
 
     def test_exception_not_implemented_dtd_structure(self):
-        inputfile = 'test/US08613112-notSupportedDTD.XML'
+        inputfile = resource_filename("patent_parsing_tools.tests", "US08613112-notSupportedDTD.XML")
         self.assertRaises(NotSupportedDTDConfiguration, self.extractor.parse, inputfile)
 
     def test_no_exception_when_lack_of_node(self):
-        inputfile = 'test/US08613112-lackofnode.XML'
+        inputfile = resource_filename("patent_parsing_tools.tests", "US08613112-lackofnode.XML")
         self.extractor.parse(inputfile)
 
     def test_throw_exception_and_go_through(self):
+        inputfile = resource_filename("patent_parsing_tools.tests", "US08613112-noDTDFile.XML")
         try:
-            self.extractor.parse('test/US08613112-noDTDFile.XML')
+            self.extractor.parse(resource_filename("patent_parsing_tools.tests", "US08613112-noDTDFile.XML"))
         except NotSupportedDTDConfiguration as r:
             print "Catched first Exception with message: \"" + r.message + "\""
 
         try:
-            self.extractor.parse('test/US08613112-notSupportedDTD.XML')
+            self.extractor.parse(resource_filename("patent_parsing_tools.tests", "US08613112-notSupportedDTD.XML"))
         except NotSupportedDTDConfiguration as r:
             print "Catched second Exception with message: \"" + r.message + "\""
 

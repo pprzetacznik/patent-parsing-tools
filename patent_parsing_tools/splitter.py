@@ -4,7 +4,7 @@
 import os
 import re
 import sys
-from utils.log import log
+from patent_parsing_tools.utils.log import log
 
 @log
 class Splitter:

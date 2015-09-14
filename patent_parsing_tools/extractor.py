@@ -6,7 +6,9 @@ import re
 import lxml.etree as ET
 import json
 from patent import Patent
-from utils.log import log
+from patent_parsing_tools.utils.log import log
+from pkg_resources import resource_stream
+
 
 class NotSupportedDTDConfiguration(Exception):
     def __init__(self, message):
@@ -15,6 +17,7 @@ class NotSupportedDTDConfiguration(Exception):
     def __str__(self):
         return repr(self.message)
 
+
 @log
 class Extractor:
     def __init__(self, extractor_xpath_configuration, dir="."):
@@ -22,7 +25,7 @@ class Extractor:
         self.dir = dir
         if not os.path.isdir(dir):
             os.makedirs(dir)
-        json_data = open(extractor_xpath_configuration)
+        json_data = resource_stream("patent_parsing_tools.config", "extractor_configuration.json")
         self.structure = json.load(json_data)
         json_data.close()
 

@@ -6,7 +6,7 @@ from sys import argv
 from os import *
 from os.path import *
 from splitter import Splitter
-from utils.log import log
+from patent_parsing_tools.utils.log import log
 
 @log
 class Unzipper:

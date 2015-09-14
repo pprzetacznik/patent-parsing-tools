@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 
 import unittest
-from utils.log import log
+from patent_parsing_tools.utils.log import log
 
 @log
 class SimpleClass(object):
