@@ -9,6 +9,9 @@ from pip.req import parse_requirements
 with open('requirements.txt') as f:
     required = f.read().splitlines()
 
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 setup(
     name = "patent-parsing-tools",
     version = "0.9",
@@ -18,7 +21,7 @@ setup(
     license = "MIT",
     keywords = "deeplearning dbn rbm rsm backpropagation precission recall",
     url = "https://bitbucket.org/ml-patents/patent-parsing-tools",
-    packages=find_packages(exclude=['contrib', 'docs', 'tests', '*.tests']),
+    packages=find_packages(),
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -27,9 +30,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 2.7",
     ],
-    install_requires=required,
     package_data={
-        'patent-grant-specification': ['doc/patent-grant-v44-2013-05-16'],
+        '': ['*.txt', '*.json', '*.XML'],
     },
-    data_files=[('config', ['patent_parsing_tools/extractor_configuration.json'])]
+    install_requires=required,
 )

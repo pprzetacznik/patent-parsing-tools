@@ -5,7 +5,7 @@ patent-parsing-tools
 
 ## Running:
 
-  python supervisor.py [working_directory] [train_destination] [test_destination] [year_from] [year_to]
+  python -m patent_parsing_tools.supervisor [working_directory] [train_destination] [test_destination] [year_from] [year_to]
 
 ## Running tests
 
