@@ -5,7 +5,7 @@ import os
 import re
 import lxml.etree as ET
 import json
-from patent import Patent
+from patent_parsing_tools.patent import Patent
 from patent_parsing_tools.utils.log import log
 from pkg_resources import resource_stream
 
@@ -20,8 +20,7 @@ class NotSupportedDTDConfiguration(Exception):
 
 @log
 class Extractor:
-    def __init__(self, extractor_xpath_configuration, dir="."):
-        self.extractor_xpath = extractor_xpath_configuration
+    def __init__(self, dir="."):
         self.dir = dir
         if not os.path.isdir(dir):
             os.makedirs(dir)
@@ -58,8 +57,6 @@ class Extractor:
             list_of_patent_classes.append([section[n].text, clazz[n].text, subclass[n].text, main_group[n].text, subgroup[n].text])
         patent.classification = list_of_patent_classes
         return patent
-
-        # patent.serialize(self.dir + '/' + root.attrib['file'] + '.save')
 
     def node_to_text(self, inputfile, root, structure, filepart):
         try:

@@ -14,6 +14,8 @@ from patent_parsing_tools.utils.log import log
 
 @log
 class Supervisor():
+    """Docstring for Supervisor class"""
+
     def __init__(self, working_dir, train_destination, test_destination):
         self.working_dir = working_dir
         self.train_destination = train_destination

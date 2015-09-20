@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+
 import os
 import sys
 import cPickle
@@ -6,8 +9,7 @@ import re
 import time
 from nltk.corpus import stopwords
 from stemming.porter2 import stem
-
-__author__ = 'vreal'
+from patent_parsing_tools.patent import Patent
 
 word_dictionary = {}
 
@@ -34,10 +36,20 @@ def dump_dictionary(sorted_dictionary, dict_max_size, dictionary_name):
     print "Done"
     sys.exit(0)
 
+def fib(x):
+    """
+    >>> fib(5)
+    ala ma kota
+
+    >>> fib(6)
+    ala ma kota
+
+    """
+    print "ala ma kota"
+
 if __name__ == '__main__':
     if len(sys.argv) != 5:
-        print "Wrong arguments"
-        print "python create_Dictionary_from_patents  src max_parsed_patents dict_max_size dictionary_name"
+        print "python -m dictionary_maker [train_directory] [max_parsed_patents] [dict_max_size] [dictionary_name]"
     else:
         src = sys.argv[1]
 
@@ -47,6 +59,7 @@ if __name__ == '__main__':
         n= 0
         start = time.time()
         for fn in os.listdir(src):
+            print(src + os.sep + fn)
             patent_list = cPickle.load(open(src + os.sep + fn, "rb"))
 
             for patent in patent_list:
