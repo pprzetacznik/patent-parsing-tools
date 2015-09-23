@@ -1,3 +1,4 @@
 lxml
 nltk
 stemming
+Sphinx

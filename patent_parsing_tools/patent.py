@@ -5,7 +5,21 @@ import cPickle
 
 
 class Patent:
+    """
+    Patent object
+
+    >>> patent = Patent()
+    >>> patent.data = "test data"
+    >>> patent.serialize("./serialized_patent")
+    >>> patent2 = Patent.load("./serialized_patent")
+    >>> print patent2.data
+    test data
+    """
+
     def serialize(self, filename):
+        """
+        Serialization method
+        """
         f = file(filename, 'wb')
         cPickle.dump(self, f, protocol=cPickle.HIGHEST_PROTOCOL)
         f.close()
@@ -13,12 +27,7 @@ class Patent:
     @staticmethod
     def load(source):
         """
-        >>> patent = Patent()
-        >>> patent.data = "test data"
-        >>> patent.serialize("./serialized_patent")
-        >>> patent2 = Patent.load("./serialized_patent")
-        >>> print patent2.data
-        test data
+        Deserialization static method
         """
 
         return cPickle.load(open(source, "rb"))

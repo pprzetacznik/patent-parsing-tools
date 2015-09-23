@@ -1,6 +1,12 @@
 patent-parsing-tools
 ====================
 
+## System requirements:
+
+  sudo yum install python-devel libxslt-devel libxml2-devel
+
+## Python requirements:
+
   pip install -r requirements.txt
 
 ## Running:
