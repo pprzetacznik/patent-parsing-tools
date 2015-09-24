@@ -10,8 +10,8 @@ class Patent:
 
     >>> patent = Patent()
     >>> patent.data = "test data"
-    >>> patent.serialize("./serialized_patent")
-    >>> patent2 = Patent.load("./serialized_patent")
+    >>> patent.serialize("serialized_patent")
+    >>> patent2 = Patent.load("serialized_patent")
     >>> print patent2.data
     test data
     """
@@ -29,6 +29,5 @@ class Patent:
         """
         Deserialization static method
         """
-
         return cPickle.load(open(source, "rb"))
 

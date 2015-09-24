@@ -4,6 +4,8 @@
 import logging
 from datetime import datetime
 import os
+import time
+
 
 class Logger:
     __register = False
@@ -25,7 +27,7 @@ class Logger:
         formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
         console.setFormatter(formatter)
         logging.getLogger('').addHandler(console)
-        logging.info("initialized logger")
+        logging.info("Logger initialized")
         Logger.__register = True
 
     def get_logger(self, filename):
@@ -35,3 +37,9 @@ def log(cls):
     cls.logger = Logger().get_logger(cls.__name__)
     return cls
 
+def log_timer(fn):
+    def helper(*args, **kw):
+        start = time.time()
+        fn(*args, **kw)
+        args[0].logger.info("Invoking method %s() took %fs" % (fn.__name__, (time.time() - start)))
+    return helper
