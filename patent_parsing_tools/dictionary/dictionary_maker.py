@@ -16,7 +16,10 @@ from patent_parsing_tools.utils.log import log, log_timer
 @log
 class DictionaryMaker:
     def __init__(self):
-        self.word_dictionary = {}
+        download('stopwords')
+        self.stopwords = stopwords.words('english')
+        self.wordcount = {}
+        self.parse_regexp = re.compile(r"([0-9]*[a-zA-Z][a-zA-Z0-9]+)", re.DOTALL)
 
     @log_timer
     def parse(self, directory, max_parsed_patents):
@@ -26,39 +29,59 @@ class DictionaryMaker:
             patent_list = cPickle.load(open(directory + os.sep + fn, "rb"))
 
             for patent in patent_list:
-                self.parse_text(patent.abstract)
-                self.parse_text(patent.description)
-                self.parse_text(patent.claims)
-                self.parse_text(patent.title)
+                self._parse_text(patent.abstract)
+                self._parse_text(patent.description)
+                self._parse_text(patent.claims)
+                self._parse_text(patent.title)
                 n += 1
-                if n > max_parsed_patents:#6,7s dla stem tylko dla topu, 368s dla wszystkich
+                if n > max_parsed_patents:
                     break
-
-    @log_timer
-    def sort(self):
-        self.word_dictionary = sorted(self.word_dictionary.items(), key=operator.itemgetter(1), reverse=True)
+        self.logger.info("Parsed: " + str(n) + " patents")
 
     @log_timer
     def dump(self, dictionary_name, dict_max_size):
-        f = open(dictionary_name, "w")
-        download('stopwords')
-        stop = stopwords.words('english')
-        set_of_valid_words = set()
-        for (word, counter) in self.word_dictionary:
-            if (len(word) > 2) and (not any(ch.isdigit() for ch in word)) and (not word in stop):
-                set_of_valid_words.add(stem(word.lower()))
-                if len(set_of_valid_words) >= dict_max_size:
-                    f.write('\n'.join(set_of_valid_words))
-                    break
-        f.close()
+        sorted_wordcount = sorted(self.wordcount.items(), key=operator.itemgetter(1), reverse=True)[:dict_max_size]
+        with open (dictionary_name, 'w') as f:
+            keys = [item[0] for item in sorted_wordcount]
+            f.write('\n'.join(keys))
 
-    def parse_text(self, text):
-        clear = re.sub("[^a-zA-Z \n]", "", text)
-        for _, word_from_patent in enumerate(clear.split()):
-            if word_from_patent in self.word_dictionary:
-                self.word_dictionary[word_from_patent] += 1
-            else:
-                self.word_dictionary[word_from_patent] = 1
+    def _parse_text(self, text):
+        """
+        >>> dictionary_maker = DictionaryMaker() #doctest: +ELLIPSIS
+        [nltk_data] ...
+        >>> dictionary_maker._parse_text_fast("a1a ma kota")
+        >>> print dictionary_maker.wordcount
+        {'ma': 1, 'a1a': 1, 'kota': 1}
+        """
+        words = self.parse_regexp.findall(text)
+        for word in words:
+            new_word = stem(word.lower())
+            if new_word not in self.stopwords:
+                if new_word in self.wordcount:
+                    self.wordcount[new_word] += 1
+                else:
+                    self.wordcount[new_word] = 1
+
+    @log_timer
+    def _parse_text_fast(self, text):
+        """
+        >>> dictionary_maker = DictionaryMaker() #doctest: +ELLIPSIS
+        [nltk_data] ...
+        >>> dictionary_maker._parse_text_fast("a1a ma kota")
+        >>> print dictionary_maker.wordcount
+        {'ma': 1, 'a1a': 1, 'kota': 1}
+        """
+        split_regexp = re.compile(ur"[^a-zA-Z0-9 \n]", re.DOTALL)
+        new_text = split_regexp.sub(" ", text)
+        words = new_text.split()
+        for word in words:
+            new_word = word.lower()
+            if new_word.isalnum() and new_word not in self.stopwords:
+                if new_word in self.wordcount:
+                    self.wordcount[new_word] += 1
+                else:
+                    self.wordcount[new_word] = 1
+
 
 
 if __name__ == '__main__':
@@ -73,6 +96,4 @@ if __name__ == '__main__':
 
         dictionary_maker = DictionaryMaker()
         dictionary_maker.parse(train_directory, max_parsed_patents)
-        dictionary_maker.sort()
         dictionary_maker.dump(dictionary_name, dict_max_size)
-

@@ -4,13 +4,12 @@ import cPickle
 import patent
 import time
 from stemming.porter2 import stem
-
-
-__author__ = 'vreal'
-
 import numpy
 import cPickle
+from patent_parsing_tools.utils.log import log
 
+
+@log
 class BagOfWords():
 
     def __init__(self, dictionary):

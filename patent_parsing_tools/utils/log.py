@@ -5,6 +5,7 @@ import logging
 from datetime import datetime
 import os
 import time
+from functools import wraps
 
 
 class Logger:
@@ -38,6 +39,7 @@ def log(cls):
     return cls
 
 def log_timer(fn):
+    @wraps(fn)
     def helper(*args, **kw):
         start = time.time()
         fn(*args, **kw)
