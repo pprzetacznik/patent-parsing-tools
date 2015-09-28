@@ -20,11 +20,12 @@ class Supervisor():
         self.working_dir = working_dir
         self.train_destination = train_destination
         self.test_destination = test_destination
-        self.__create_directory_if_not_exists(self.working_dir)
-        self.__create_directory_if_not_exists(self.train_destination)
-        self.__create_directory_if_not_exists(self.test_destination)
+        Supervisor._create_directory_if_not_exists(self.working_dir)
+        Supervisor._create_directory_if_not_exists(self.train_destination)
+        Supervisor._create_directory_if_not_exists(self.test_destination)
 
-    def __create_directory_if_not_exists(self, path):
+    @staticmethod
+    def _create_directory_if_not_exists(path):
         if not os.path.exists(path):
             os.makedirs(path)
 
@@ -101,7 +102,7 @@ class Supervisor():
             patent.description is not None and \
             patent.claims is not None:
             return True
-        self.logger.warn("patent not valid")
+        self.logger.warn("patent " + patent.documentID + " is not valid")
         return False
 
 def get_files(directory, type):

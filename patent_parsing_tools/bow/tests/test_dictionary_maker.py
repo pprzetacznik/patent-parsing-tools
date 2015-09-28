@@ -1,6 +1,6 @@
 import unittest
 import doctest
-import patent_parsing_tools.dictionary.dictionary_maker as dictionary_maker
+import patent_parsing_tools.bow.dictionary_maker as dictionary_maker
 
 def setUp(_arg):
     pass

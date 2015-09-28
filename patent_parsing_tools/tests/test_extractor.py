@@ -2,11 +2,8 @@
 #!/usr/bin/env python
 
 import unittest
-import cPickle
 from patent_parsing_tools.extractor import Extractor, NotSupportedDTDConfiguration
-from pprint import pprint
 import lxml.etree as ET
-import os
 from pkg_resources import resource_filename
 
 
@@ -19,7 +16,6 @@ class TestExtractor(unittest.TestCase):
 
     def test_should_load_json_file(self):
         self.assertIsNotNone(self.extractor.structure["us-patent-grant-v44-2013-05-16.dtd"]["documentID"])
-        pprint(self.extractor.structure)
 
     def test_xpaths(self):
         inputfile = resource_filename("patent_parsing_tools.tests", "US08613112-20131224.XML")
@@ -28,11 +24,6 @@ class TestExtractor(unittest.TestCase):
         root = tree.getroot()
 
         dtdStructure = self.extractor.structure[tree.docinfo.internalDTD.system_url]
-
-        print "Document ID:", root.findall(dtdStructure["documentID"])[0].text
-        print "Invention Title:", root.findall('.//us-bibliographic-data-grant//invention-title')[0].text
-        print "Date:", root.findall('.//application-reference//document-id//date')[0].text
-
         patent = self.extractor.parse(inputfile)
 
         self.assertEqual(patent.documentID, root.findall(dtdStructure["documentID"])[0].text)

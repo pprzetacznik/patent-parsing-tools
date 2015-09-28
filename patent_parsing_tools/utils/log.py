@@ -42,6 +42,7 @@ def log_timer(fn):
     @wraps(fn)
     def helper(*args, **kw):
         start = time.time()
-        fn(*args, **kw)
+        result = fn(*args, **kw)
         args[0].logger.info("Invoking method %s() took %fs" % (fn.__name__, (time.time() - start)))
+        return result
     return helper
