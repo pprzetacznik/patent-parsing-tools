@@ -52,3 +52,9 @@ python -m patent_parsing_tools.bow.bag_of_words patents/test_destination patents
 python -m unittest discover .
 ```
 
+## Contributing
+
+```Bash
+python setup.py register
+python setup.py bdist
+```
