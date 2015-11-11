@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name = "patent-parsing-tools",
-    version = "0.9",
+    version = "0.9.1",
     author = "Michal Dul, Piotr Przetacznik, Krzysztof Strojny",
     author_email = "piotr.przetacznik@gmail.com",
     description = ("patent-parsing-tools is a library providing tools for generating training and test set from Google's USPTO data helpful with for testing machine learning algorithms"),
