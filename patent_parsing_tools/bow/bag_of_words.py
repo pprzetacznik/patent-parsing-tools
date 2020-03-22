@@ -1,9 +1,11 @@
 import os
 import sys
 import pickle
+from pkg_resources import resource_filename
 from patent_parsing_tools.supervisor import Supervisor
 from patent_parsing_tools.bow.wordcount import WordCount
 from patent_parsing_tools.utils.log import log, log_timer
+from patent_parsing_tools.patent import Patent
 
 
 @log
@@ -11,7 +13,7 @@ class BagOfWords:
     def __init__(self, dictionary_name):
         """
         >>> bag_of_words.dictionary #doctest: +ELLIPSIS
-        {..., 'herbicid': 2724, 'silica': 1072, 'phosphat': 1499}
+        {..., 'rp': 4092, 'ru': 4093, 'propanol': 4094, 'shroud': 4095}
         """
         self.dictionary = self._load_dictionary(dictionary_name)
         self.wordcount = WordCount()
@@ -54,7 +56,7 @@ class BagOfWords:
         """
         >>> serialized_patents = resource_filename("patent_parsing_tools.bow.tests", "xml_tuple_short")
         >>> bag_of_words.parse_one_file(serialized_patents) #doctest: +ELLIPSIS
-        [('08923091', [['G', '01', 'V', '1', '36'], ['G', '01', 'S', '7', '28'], ['G', '01', 'S', '7', '292']], {'invent': 7, ...})]
+        [('08923091', [['G', '01', 'V', '1', '36'], ['G', '01', 'S', '7', '28'], ['G', '01', 'S', '7', '292']], {'dual': 2, 'sensor': 120, ...})]
         """
         parsed_patent_list = []
         with open(filename, "rb") as f:
