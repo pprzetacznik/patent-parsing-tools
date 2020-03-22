@@ -17,12 +17,11 @@ class WordCount:
 
     def parse_text(self, text, wordcount_dictionary=None):
         """
-        >>> wordcount = WordCount() #doctest: +ELLIPSIS
-        [nltk_data] ...
-        >>> wordcount.parse_text("a1a ma kota")
-        {'ma': 1, 'a1a': 1, 'kota': 1}
-        >>> wordcount.parse_text("a1a ma kota", {'a1a': 2, 'kota': 1})
-        {'ma': 1, 'a1a': 3, 'kota': 2}
+        >>> wordcount = WordCount()
+        >>> wordcount.parse_text("a1a m4 kota")
+        {'a1a': 1, 'm4': 1, 'kota': 1}
+        >>> wordcount.parse_text("a1a m4 kota", {'a1a': 2, 'kota': 1})
+        {'a1a': 3, 'kota': 2, 'm4': 1}
         """
         if not wordcount_dictionary:
             wordcount_dictionary = {}

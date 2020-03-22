@@ -9,8 +9,9 @@ from patent_parsing_tools.utils.log import log, log_timer
 @log
 class DictionaryMaker:
     """
-    >>> dictionary_maker = DictionaryMaker() #doctest: +ELLIPSIS
-    [...
+    >>> dictionary_maker = DictionaryMaker()
+    >>> print(dictionary_maker) #doctest: +ELLIPSIS
+    <patent_parsing_tools.bow.dictionary_maker.DictionaryMaker object ...
     """
 
     def __init__(self):

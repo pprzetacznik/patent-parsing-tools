@@ -9,7 +9,7 @@ class Patent:
     >>> patent.data = "test data"
     >>> patent.serialize("serialized_patent")
     >>> patent2 = Patent.load("serialized_patent")
-    >>> print patent2.data
+    >>> print(patent2.data)
     test data
     """
 

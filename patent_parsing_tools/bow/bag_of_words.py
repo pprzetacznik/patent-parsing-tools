@@ -87,7 +87,7 @@ class BagOfWords:
         >>> patent_list = [('asdf1', [['G', '01', 'V', '1', '36']], {'ma': 4, 'al': 1, 'ala': 2, 'a1a': 1, 'kot': 1, 'kota': 3})]
         >>> bag_of_words._serialize_patent_list("./final_serialized_patent", patent_list)
         >>> with open("./final_serialized_patent", 'r') as fin:
-        ...     print fin.read()
+        ...     print(fin.read())
         asdf1 [G:01:V:1:36] 444:1 3023:4
         """
         with open(serialized_patent_filename, "w") as f:
