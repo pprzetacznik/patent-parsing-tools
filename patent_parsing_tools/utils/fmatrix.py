@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
-#!/usr/local/bin/python
-
-import cPickle
+from functools import reduce
+import pickle
 from os import listdir, path
 import numpy as np
 import theano
 
 
 def get_file_lines(filename):
-    with open(filename, 'r') as fh:
+    with open(filename, "r") as fh:
         return sum(1 for _ in fh)
 
 
@@ -21,13 +19,13 @@ def parse2(filename, dictionary):
     d = 0
     matrix = np.zeros((file_lines, dictionary_size))
     did = np.zeros(file_lines)
-    with open(filename, 'r') as fh:
+    with open(filename, "r") as fh:
         for line in fh:
             tokens = line.split()
             if len(tokens) > 0:
                 did[d] = tokens[0]
                 for token in tokens[1:]:
-                    [id, cnt] = token.split(':')
+                    [id, cnt] = token.split(":")
                     v = int(id) - 1
                     c = float(cnt)
                     matrix[d, v] = c
@@ -50,41 +48,49 @@ def get_theano_dataset(filename, dictionary):
 
 
 def load_patents_dataset(directory):
-    print "loading %s dataset..." % directory
+    print(f"loading {directory} dataset...")
 
     dataset = []
-    files = [f for f in listdir(directory) if path.isfile(path.join(directory, f))]
+    files = [
+        f for f in listdir(directory) if path.isfile(path.join(directory, f))
+    ]
     for file in files:
         batch = load_patents_file(path.join(directory, file))
         dataset = dict(dataset, **batch)
 
-    print "dataset %s loaded (%d patents)" \
-          % (directory, len(dataset.keys()))
+    print(
+        "dataset {directory} loaded ({patents} patents)".format(
+            directory=directory, patents=len(dataset.keys())
+        )
+    )
 
     return dataset
 
 
 def load_patents_file(filepath):
-    print "loading %s batch..." % filepath
+    print(f"loading {filepath} batch...")
     with open(filepath, "rb") as file_name:
         try:
-            data_set = cPickle.load(file_name)
+            data_set = pickle.load(file_name)
             return data_set
         except Exception as e:
-            print "   could not load file (%s)" % str(e)
+            print(f"   could not load file ({e})")
             return {}
 
 
 def concat(item, next):
-            if len(next) == 0:
-                return item
-            if len(item) >= 1:
-                return concat(item + [(item[-1] + (next[0] if not None else 'None'))], next[1:])
-            else:
-                return concat(item + [next[0]], next[1:])
+    if len(next) == 0:
+        return item
+    if len(item) >= 1:
+        return concat(
+            item + [(item[-1] + (next[0] if not None else "None"))], next[1:]
+        )
+    else:
+        return concat(item + [next[0]], next[1:])
 
 
-parse_categories = lambda l, depth: reduce(lambda x, y: x + [concat([], y)[depth]], l, [])
+def parse_categories(l, depth):
+    reduce(lambda x, y: x + [concat([], y)[depth]], l, [])
 
 
 def get_test_set_with_categories(directory, depth=0):

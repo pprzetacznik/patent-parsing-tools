@@ -2,3 +2,4 @@ lxml
 nltk
 stemming
 Sphinx
+requests

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-#!/usr/bin/env python
-
 import re
 from nltk import download
 from nltk.corpus import stopwords
@@ -11,10 +8,12 @@ from patent_parsing_tools.utils.log import log
 @log
 class WordCount:
     def __init__(self):
-        download('stopwords')
-        self.stopwords = stopwords.words('english')
+        download("stopwords")
+        self.stopwords = stopwords.words("english")
         self.wordcount_dictionary = {}
-        self.parse_regexp = re.compile(r"([0-9]*[a-zA-Z][a-zA-Z0-9]+)", re.DOTALL)
+        self.parse_regexp = re.compile(
+            r"([0-9]*[a-zA-Z][a-zA-Z0-9]+)", re.DOTALL
+        )
 
     def parse_text(self, text, wordcount_dictionary=None):
         """
@@ -25,7 +24,7 @@ class WordCount:
         >>> wordcount.parse_text("a1a ma kota", {'a1a': 2, 'kota': 1})
         {'ma': 1, 'a1a': 3, 'kota': 2}
         """
-        if wordcount_dictionary is None:
+        if not wordcount_dictionary:
             wordcount_dictionary = {}
         words = self.parse_regexp.findall(text)
         for word in words:

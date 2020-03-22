@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-#!/usr/bin/env python
-
-import cPickle
+import pickle
 
 
 class Patent:
@@ -20,14 +17,12 @@ class Patent:
         """
         Serialization method
         """
-        f = file(filename, 'wb')
-        cPickle.dump(self, f, protocol=cPickle.HIGHEST_PROTOCOL)
-        f.close()
+        with open(filename, "wb") as f:
+            pickle.dump(self, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     @staticmethod
     def load(source):
         """
         Deserialization static method
         """
-        return cPickle.load(open(source, "rb"))
-
+        return pickle.load(open(source, "rb"))

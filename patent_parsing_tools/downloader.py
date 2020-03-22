@@ -1,18 +1,15 @@
-# -*- coding: utf-8 -*-
-#!/usr/bin/env python
-
 import os
 import re
-import urllib
-import urllib2
+import requests
 import sys
 from lxml import etree
 from patent_parsing_tools.utils.log import log
 
+
 @log
 class Downloader:
 
-    URLS_XPATH='//a/@href'
+    URLS_XPATH = "//a/@href"
 
     def __init__(self, base_url):
         self.base_url = base_url
@@ -23,31 +20,39 @@ class Downloader:
             filename = os.path.basename(url)
             self.logger.info(filename)
             local_file = os.path.join(directory, filename)
-            if not os.path.isfile(local_file):
-                urllib.urlretrieve(url, local_file)
-                self.logger.info("   downloaded")
-            else:
+            if os.path.isfile(local_file):
                 self.logger.info("   file already exists")
+            else:
+                r = requests.get(url, stream=True)
+                if r.status_code == 200:
+                    with open(local_file, "wb") as f:
+                        for chunk in r.iter_content(1024):
+                            f.write(chunk)
+                self.logger.info("   downloaded")
 
     def get_urls(self, begin_year, end_year):
         content = self.get_base_url_content()
         tree = etree.HTML(content)
-        return self.filter_urls(tree.xpath(self.URLS_XPATH), begin_year, end_year)
+        return self.filter_urls(
+            tree.xpath(self.URLS_XPATH), begin_year, end_year
+        )
 
     def get_base_url_content(self):
-        response = urllib2.urlopen(self.base_url)
-        return response.read()
+        response = requests.get(self.base_url)
+        return response.content
 
     def filter_urls(self, urls, begin_year, end_year):
-        url_filter = lambda url: self.url_matcher(url, begin_year, end_year)
-        return filter(url_filter, urls)
+        return filter(
+            lambda url: self.url_matcher(url, begin_year, end_year), urls
+        )
 
     def url_matcher(self, url, begin_year, end_year):
         match = re.match(r".*\/(?P<year>[0-9]+)\/[a-z0-9_]+\.zip", url)
         if match is None:
             return False
-        year = int(match.group('year'))
+        year = int(match.group("year"))
         return begin_year <= year and year <= end_year
+
 
 def process_args(argv):
     dir = sys.argv[1]
@@ -57,18 +62,22 @@ def process_args(argv):
     try:
         begin_year = int(sys.argv[2])
         end_year = int(sys.argv[3])
-    except:
-        print "incorrect year"
+    except Exception as e:
+        print(e)
+        print("incorrect year")
 
     return dir, begin_year, end_year
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     if len(sys.argv) == 4:
         dir, begin_year, end_year = process_args(sys.argv)
 
-        url = 'https://www.google.com/googlebooks/uspto-patents-grants-text.html'
+        url = (
+            "https://www.google.com/googlebooks/uspto-patents-grants-text.html"
+        )
 
         downloader = Downloader(url)
         downloader.download_archives(dir, begin_year, end_year)
     else:
-        print "python downloader.py [directory] [year_from] [year_to]"
+        print("python downloader.py [directory] [year_from] [year_to]")

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-#!/usr/bin/env python
-
 import os
 import re
 import lxml.etree as ET
@@ -24,7 +21,9 @@ class Extractor:
         self.dir = dir
         if not os.path.isdir(dir):
             os.makedirs(dir)
-        json_data = resource_stream("patent_parsing_tools.config", "extractor_configuration.json")
+        json_data = resource_stream(
+            "patent_parsing_tools.config", "extractor_configuration.json"
+        )
         self.structure = json.load(json_data)
         json_data.close()
 
@@ -42,9 +41,15 @@ class Extractor:
         patent.documentID = root.findall(dtdStructure["documentID"])[0].text
         patent.title = root.findall(dtdStructure["inventionTitle"])[0].text
         patent.date = root.findall(dtdStructure["date"])[0].text
-        patent.abstract = self.node_to_text(inputfile, root, dtdStructure, "abstract")
-        patent.description = self.node_to_text(inputfile, root, dtdStructure, "description")
-        patent.claims = self.node_to_text(inputfile, root, dtdStructure, "claims")
+        patent.abstract = self.node_to_text(
+            inputfile, root, dtdStructure, "abstract"
+        )
+        patent.description = self.node_to_text(
+            inputfile, root, dtdStructure, "description"
+        )
+        patent.claims = self.node_to_text(
+            inputfile, root, dtdStructure, "claims"
+        )
 
         section = root.findall(dtdStructure["section"])
         clazz = root.findall(dtdStructure["class"])
@@ -53,28 +58,43 @@ class Extractor:
         subgroup = root.findall(dtdStructure["subgroup"])
 
         list_of_patent_classes = []
-        for n in xrange(1, len(section)):
-            list_of_patent_classes.append([section[n].text, clazz[n].text, subclass[n].text, main_group[n].text, subgroup[n].text])
+        for n in range(1, len(section)):
+            list_of_patent_classes.append(
+                [
+                    section[n].text,
+                    clazz[n].text,
+                    subclass[n].text,
+                    main_group[n].text,
+                    subgroup[n].text,
+                ]
+            )
         patent.classification = list_of_patent_classes
         return patent
 
     def node_to_text(self, inputfile, root, structure, filepart):
         try:
             node = root.findall(structure[filepart])[0]
-            text = ET.tostring(node, pretty_print=True)
-            return re.sub('<[^<]+?>', '', text)
+            text = ET.tostring(node, pretty_print=True).decode()
+            return re.sub("<[^<]+?>", "", text)
         except IndexError as e:
-            self.logger.warning("Node: " + filepart + " doesn't exists in file: " + inputfile)
+            self.logger.warning("Message: {e}")
+            self.logger.warning(
+                "Node: " + filepart + " doesn't exists in file: " + inputfile
+            )
         return None
 
     def getDTDXpathConfiguration(self, inputfile, tree):
         try:
             dtdFile = tree.docinfo.internalDTD.system_url
         except Exception:
-            raise NotSupportedDTDConfiguration('File: ' + inputfile + ' has not supported xml structure')
+            raise NotSupportedDTDConfiguration(
+                "File: " + inputfile + " has not supported xml structure"
+            )
 
         try:
             return self.structure[dtdFile]
         except Exception:
             raise NotSupportedDTDConfiguration(
-                'File: ' + inputfile + ' has not implemented structure (' + dtdFile + ')')
+                f"File: {inputfile} has not implemented structure ("
+                + f"{dtdFile})"
+            )

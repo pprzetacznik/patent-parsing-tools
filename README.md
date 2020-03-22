@@ -1,6 +1,8 @@
 patent-parsing-tools
 ====================
 
+[![Build Status](https://travis-ci.org/pprzetacznik/patent-parsing-tools.svg?branch=master)](https://travis-ci.org/pprzetacznik/patent-parsing-tools)
+
 ## System requirements:
 
 ```Bash
