@@ -27,25 +27,22 @@ class BagOfWords:
         Supervisor._create_directory_if_not_exists(destination_directory)
 
         for filename in os.listdir(patents_directory):
-            patent_filename = patents_directory + os.sep + filename
+            patent_filename = os.path.join(patents_directory, filename)
             self.logger.info(
-                "Opening file with serialized patents: " + patent_filename
+                f"Opening file with serialized patents: {patent_filename}"
             )
             patents_list += self.parse_one_file(patent_filename)
             if len(patents_list) > package_size:
-                serialized_patent_filename = (
-                    destination_directory
-                    + os.sep
-                    + "ml-patents_"
-                    + str(package_index)
+                serialized_patent_filename = os.path.join(
+                    destination_directory, f"ml-patents_{package_index}"
                 )
                 self._serialize_patent_list(
                     serialized_patent_filename, patents_list[:package_size]
                 )
                 package_index += 1
                 patents_list = patents_list[package_size:]
-        serialized_patent_filename = (
-            destination_directory + os.sep + "ml-patents_" + str(package_index)
+        serialized_patent_filename = os.path.join(
+            destination_directory, f"ml-patents_{package_index}"
         )
         self._serialize_patent_list(
             serialized_patent_filename, patents_list[:package_size]
@@ -68,14 +65,14 @@ class BagOfWords:
     def _parse_patent(self, patent):
         """
         >>> patent = Patent()
-        >>> patent.title = "ala ma kota"
-        >>> patent.abstract = "ala ma kota"
-        >>> patent.description = "a1a ma kota"
-        >>> patent.claims = "kot ma alę"
+        >>> patent.title = "ala m4 kota"
+        >>> patent.abstract = "ala m4 kota"
+        >>> patent.description = "a1a m4 kota"
+        >>> patent.claims = "kot m4 alę"
         >>> patent.documentID = "asdf1"
         >>> patent.classification = [['G', '01', 'V', '1', '36']]
         >>> bag_of_words._parse_patent(patent)
-        ('asdf1', [['G', '01', 'V', '1', '36']], {'ma': 4, 'al': 1, 'ala': 2, 'a1a': 1, 'kot': 1, 'kota': 3})
+        ('asdf1', [['G', '01', 'V', '1', '36']], {'ala': 2, 'm4': 4, 'kota': 3, 'a1a': 1, 'kot': 1, 'al': 1})
         """
         dictionary = self.wordcount.parse_text(patent.title)
         dictionary = self.wordcount.parse_text(patent.abstract, dictionary)
@@ -88,8 +85,8 @@ class BagOfWords:
         """
         >>> patent_list = [('asdf1', [['G', '01', 'V', '1', '36']], {'ma': 4, 'al': 1, 'ala': 2, 'a1a': 1, 'kot': 1, 'kota': 3})]
         >>> bag_of_words._serialize_patent_list("./final_serialized_patent", patent_list)
-        >>> with open("./final_serialized_patent", 'r') as fin:
-        ...     print(fin.read())
+        >>> with open("./final_serialized_patent", 'r') as f:
+        ...     print(f.read())
         asdf1 [G:01:V:1:36] 444:1 3023:4
         """
         with open(serialized_patent_filename, "w") as f:
@@ -104,20 +101,18 @@ class BagOfWords:
         >>> bag_of_words._patent_to_string(patent)
         'asdf1 [G:01:V:1:36:None] 444:1 3023:4'
         """
-        classification = (
-            "["
-            + " ".join(map(":".join, [map(str, x) for x in patent[1]]))
-            + "]"
+        classification = " ".join(
+            map(":".join, [map(str, x) for x in patent[1]])
         )
         wordcount = {
             self.dictionary[key]: value
-            for (key, value) in patent[2].iteritems()
+            for (key, value) in patent[2].items()
             if key in self.dictionary
         }
         wordcount_as_string = " ".join(
-            [str(x[0]) + ":" + str(x[1]) for x in wordcount.iteritems()]
+            [f"{x[0]}:{x[1]}" for x in sorted(wordcount.items())]
         )
-        return patent[0] + " " + classification + " " + wordcount_as_string
+        return f"{patent[0]} [{classification}] {wordcount_as_string}"
 
     @staticmethod
     def _load_patent_list(f):
@@ -137,7 +132,9 @@ class BagOfWords:
 if __name__ == "__main__":
     if len(sys.argv) != 5:
         print(
-            "python -m patent_parsing_tools.bow.bag_of_words [directory_with_serialized_patents] [destination_directory] [dictionary.txt] [package_size > 1024]"
+            "python -m patent_parsing_tools.bow.bag_of_words"
+            " [directory_with_serialized_patents] [destination_directory]"
+            " [dictionary.txt] [package_size > 1024]"
         )
     else:
         patents_directory = sys.argv[1]

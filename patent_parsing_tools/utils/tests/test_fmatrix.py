@@ -56,8 +56,8 @@ class TestFMatrix(unittest.TestCase):
             else:
                 break
 
-        with open("test_vector2.pic", "wb") as file:
-            cPickle.dump(dataset2, file, cPickle.HIGHEST_PROTOCOL)
+        with open("test_vector2.pic", "wb") as f:
+            pickle.dump(dataset2, f, pickle.HIGHEST_PROTOCOL)
 
     def test_load_patents_dataset2(self):
         test_set_dir = resource_filename(
@@ -100,7 +100,6 @@ class TestFMatrix(unittest.TestCase):
         )
         [_, _, categories] = fmatrix.get_test_set_with_categories(test_set_dir)
         cats = {}
-        print(len(categories))
         for i in categories:
             for j in categories[i]:
                 if j in cats:

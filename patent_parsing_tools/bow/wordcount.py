@@ -2,10 +2,8 @@ import re
 from nltk import download
 from nltk.corpus import stopwords
 from stemming.porter2 import stem
-from patent_parsing_tools.utils.log import log
 
 
-@log
 class WordCount:
     def __init__(self):
         download("stopwords")

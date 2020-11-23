@@ -49,7 +49,6 @@ def get_theano_dataset(filename, dictionary):
 
 def load_patents_dataset(directory):
     print(f"loading {directory} dataset...")
-
     dataset = []
     files = [
         f for f in listdir(directory) if path.isfile(path.join(directory, f))
@@ -57,21 +56,16 @@ def load_patents_dataset(directory):
     for file in files:
         batch = load_patents_file(path.join(directory, file))
         dataset = dict(dataset, **batch)
-
-    print(
-        "dataset {directory} loaded ({patents} patents)".format(
-            directory=directory, patents=len(dataset.keys())
-        )
-    )
-
+    patents = len(dataset.keys())
+    print(f"dataset {directory} loaded ({patents} patents)")
     return dataset
 
 
 def load_patents_file(filepath):
     print(f"loading {filepath} batch...")
-    with open(filepath, "rb") as file_name:
+    with open(filepath, "rb") as f:
         try:
-            data_set = pickle.load(file_name)
+            data_set = pickle.load(f, encoding="latin1")
             return data_set
         except Exception as e:
             print(f"   could not load file ({e})")
@@ -91,6 +85,10 @@ def concat(item, next):
 
 def parse_categories(l, depth):
     reduce(lambda x, y: x + [concat([], y)[depth]], l, [])
+
+
+def parse_categories(l, depth):
+    return ["".join(categories[: depth + 1]) for categories in l]
 
 
 def get_test_set_with_categories(directory, depth=0):
