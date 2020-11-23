@@ -1,4 +1,4 @@
 #!/bin/sh
 
 python -m nltk.downloader stopwords
-python -m unittest discover .
+pytest patent_parsing_tools --doctest-modules -s
