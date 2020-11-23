@@ -1,0 +1,32 @@
+name: patent-parsing-tools CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+        python-version: ['3.8']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install python packages
+      run: |
+        pip install pip --upgrade
+        pip install -r requirements.txt
+    - name: Run tests
+      run: |
+        ./run_tests.sh
+    - name: Generate documentation
+      run: |
+        python setup.py build_sphinx

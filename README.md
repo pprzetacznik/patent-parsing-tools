@@ -2,6 +2,11 @@ patent-parsing-tools
 ====================
 
 [![Build Status](https://travis-ci.org/pprzetacznik/patent-parsing-tools.svg?branch=master)](https://travis-ci.org/pprzetacznik/patent-parsing-tools)
+[![Documentation Status](https://readthedocs.org/projects/patent-parsing-tools/badge/?version=latest)](https://patent-parsing-tools.readthedocs.io/en/latest/?badge=latest)
+
+## Documentation
+
+[Read the docs](https://patent-parsing-tools.readthedocs.io/en/latest/)
 
 ## System requirements:
 
@@ -52,11 +57,4 @@ python -m patent_parsing_tools.bow.bag_of_words patents/test_destination patents
 
 ```Bash
 python -m unittest discover .
-```
-
-## Contributing
-
-```Bash
-python setup.py register
-python setup.py bdist
 ```
