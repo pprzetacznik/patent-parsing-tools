@@ -3,6 +3,7 @@ patent-parsing-tools
 
 [![Build Status](https://travis-ci.org/pprzetacznik/patent-parsing-tools.svg?branch=master)](https://travis-ci.org/pprzetacznik/patent-parsing-tools)
 [![Documentation Status](https://readthedocs.org/projects/patent-parsing-tools/badge/?version=latest)](https://patent-parsing-tools.readthedocs.io/en/latest/?badge=latest)
+![patent-parsing-tools CI](https://github.com/pprzetacznik/patent-parsing-tools/workflows/patent-parsing-tools%20CI/badge.svg)
 
 ## Documentation
 
