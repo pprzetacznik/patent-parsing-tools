@@ -3,6 +3,7 @@ import re
 import requests
 import sys
 from lxml import etree
+from argparse import Namespace, ArgumentParser
 from patent_parsing_tools.utils.log import log
 
 
@@ -69,15 +70,39 @@ def process_args(argv):
     return dir, begin_year, end_year
 
 
-if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        dir, begin_year, end_year = process_args(sys.argv)
-
-        url = (
-            "https://www.google.com/googlebooks/uspto-patents-grants-text.html"
+def parse_arguments() -> Namespace:
+    parser = ArgumentParser(
+        description=(
+            "Download dataset as zip files to the destination directory"
         )
+    )
+    parser.add_argument(
+        "--directory",
+        type=str,
+        help="Destination directory where dataset should be downloaded",
+        dest="directory",
+    )
+    parser.add_argument(
+        "--year-from",
+        type=int,
+        help="Year downloading should start from",
+        dest="year_from",
+    )
+    parser.add_argument(
+        "--year-to",
+        type=int,
+        help="Year downloading should end at",
+        dest="year_to",
+    )
+    return parser.parse_args()
 
-        downloader = Downloader(url)
-        downloader.download_archives(dir, begin_year, end_year)
-    else:
-        print("python downloader.py [directory] [year_from] [year_to]")
+
+def main(args: Namespace) -> None:
+    url = "https://www.google.com/googlebooks/uspto-patents-grants-text.html"
+    downloader = Downloader(url)
+    downloader.download_archives(args.directory, args.year_from, args.year_to)
+
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    main(args)

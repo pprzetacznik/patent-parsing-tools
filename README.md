@@ -24,6 +24,14 @@ pip install patent-parsing-tools
 
 ## Examples:
 
+Downloading dataset:
+```Bash
+python -m patent_parsing_tools.downloader \
+  --directory dataset
+  --year-from 2010
+  --year-to 2010
+```
+
 Collecting and serializing data:
 ```Bash
 python -m patent_parsing_tools.supervisor \
