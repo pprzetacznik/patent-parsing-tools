@@ -1,6 +1,7 @@
 import os
 import sys
 import pickle
+from argparse import Namespace, ArgumentParser
 from pkg_resources import resource_filename
 from patent_parsing_tools.supervisor import Supervisor
 from patent_parsing_tools.bow.wordcount import WordCount
@@ -129,20 +130,50 @@ class BagOfWords:
         return dictionary
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print(
-            "python -m patent_parsing_tools.bow.bag_of_words"
-            " [directory_with_serialized_patents] [destination_directory]"
-            " [dictionary.txt] [package_size > 1024]"
+def parse_arguments() -> Namespace:
+    parser = ArgumentParser(
+        description=(
+            "Download dataset as zip files to the destination directory"
         )
-    else:
-        patents_directory = sys.argv[1]
-        destination_directory = sys.argv[2]
-        dictionary_name = sys.argv[3]
-        package_size = int(sys.argv[4])
+    )
+    parser.add_argument(
+        "--serialized-directory",
+        type=str,
+        help="Destination directory for serialized patents",
+        dest="serialized_directory",
+        required=True,
+    )
+    parser.add_argument(
+        "--destination-directory",
+        type=str,
+        help="Destination directory",
+        dest="destination_directory",
+        required=True,
+    )
+    parser.add_argument(
+        "--dictionary",
+        type=str,
+        help="Path to dictionary text file",
+        dest="dictionary",
+        required=True,
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        help="Size of batch files > 1024",
+        dest="batch_size",
+        required=True,
+    )
+    return parser.parse_args()
 
-        bag_of_words = BagOfWords(dictionary_name)
-        bag_of_words.parse_all(
-            patents_directory, destination_directory, package_size
-        )
+
+def main(args: Namespace) -> None:
+    bag_of_words = BagOfWords(args.dictionary)
+    bag_of_words.parse_all(
+        args.serialize_directory, args.destination_directory, args.batch_size
+    )
+
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    main(args)

@@ -2,6 +2,7 @@ import os
 import sys
 import pickle
 import operator
+from argparse import Namespace, ArgumentParser
 from patent_parsing_tools.bow.wordcount import WordCount
 from patent_parsing_tools.utils.log import log, log_timer
 
@@ -55,18 +56,49 @@ class DictionaryMaker:
             f.write("\n".join(keys))
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print(
-            "python -m patent_parsing_tools.bow.dictionary_maker [train_directory] [max_parsed_patents] [dict_max_size] [dictionary_name]"
+def parse_arguments() -> Namespace:
+    parser = ArgumentParser(
+        description=(
+            "Download dataset as zip files to the destination directory"
         )
-    else:
-        train_directory = sys.argv[1]
+    )
+    parser.add_argument(
+        "--train-directory",
+        type=str,
+        help="Train directory",
+        dest="train_directory",
+        required=True,
+    )
+    parser.add_argument(
+        "--max-patents",
+        type=int,
+        help="Maximum numer of parsed patents",
+        dest="max_parsed_patents",
+        required=True,
+    )
+    parser.add_argument(
+        "--dictionary",
+        type=str,
+        help="Path to dictionary text file",
+        dest="dictionary",
+        required=True,
+    )
+    parser.add_argument(
+        "--dict-max-size",
+        type=int,
+        help="Maximum size of dictionary",
+        dest="dict_max_size",
+        required=True,
+    )
+    return parser.parse_args()
 
-        max_parsed_patents = int(sys.argv[2])
-        dict_max_size = int(sys.argv[3])
-        dictionary_name = sys.argv[4]
 
-        dictionary_maker = DictionaryMaker()
-        dictionary_maker.parse(train_directory, max_parsed_patents)
-        dictionary_maker.dump(dictionary_name, dict_max_size)
+def main(args: Namespace) -> None:
+    dictionary_maker = DictionaryMaker()
+    dictionary_maker.parse(args.train_directory, args.max_parsed_patents)
+    dictionary_maker.dump(args.dictionary_name, args.dict_max_size)
+
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    main(args)

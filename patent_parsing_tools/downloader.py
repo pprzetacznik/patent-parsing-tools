@@ -81,18 +81,21 @@ def parse_arguments() -> Namespace:
         type=str,
         help="Destination directory where dataset should be downloaded",
         dest="directory",
+        required=True,
     )
     parser.add_argument(
         "--year-from",
         type=int,
         help="Year downloading should start from",
         dest="year_from",
+        required=True,
     )
     parser.add_argument(
         "--year-to",
         type=int,
         help="Year downloading should end at",
         dest="year_to",
+        required=True,
     )
     return parser.parse_args()
 

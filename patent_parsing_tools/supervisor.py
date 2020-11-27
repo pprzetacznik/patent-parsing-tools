@@ -1,9 +1,10 @@
-from random import randint, shuffle
 import sys
 import os
 from os import listdir
 from os.path import join
+from random import randint, shuffle
 import pickle
+from argparse import Namespace, ArgumentParser
 from patent_parsing_tools.downloader import Downloader
 from patent_parsing_tools.unzipper import Unzipper
 from patent_parsing_tools.extractor import Extractor
@@ -156,19 +157,57 @@ def process_args(argv):
     return working_directory, train_dest, test_dest, begin_year, end_year
 
 
-if __name__ == "__main__":
-    if len(sys.argv) == 6:
-        (
-            working_directory,
-            train_dest,
-            test_dest,
-            begin_year,
-            end_year,
-        ) = process_args(sys.argv)
-
-        supervisor = Supervisor(working_directory, train_dest, test_dest)
-        supervisor.begin(begin_year, end_year)
-    else:
-        print(
-            "python supervisor.py [working_directory] [train_destination] [test_destination] [year_from] [year_to]"
+def parse_arguments() -> Namespace:
+    parser = ArgumentParser(
+        description=(
+            "Download dataset as zip files to the destination directory"
         )
+    )
+    parser.add_argument(
+        "--working-directory",
+        type=str,
+        help="Working directory",
+        dest="working_directory",
+        required=True,
+    )
+    parser.add_argument(
+        "--train-destination",
+        type=str,
+        help="Destination directory where train dataset lands",
+        dest="train_destination",
+        required=True,
+    )
+    parser.add_argument(
+        "--test-destination",
+        type=str,
+        help="Destination directory where test dataset lands",
+        dest="test_destination",
+        required=True,
+    )
+    parser.add_argument(
+        "--year-from",
+        type=int,
+        help="Year downloading should start from",
+        dest="year_from",
+        required=True,
+    )
+    parser.add_argument(
+        "--year-to",
+        type=int,
+        help="Year downloading should end at",
+        dest="year_to",
+        required=True,
+    )
+    return parser.parse_args()
+
+
+def main(args: Namespace) -> None:
+    supervisor = Supervisor(
+        args.working_directory, args.train_destination, args.test_destination
+    )
+    supervisor.begin(args.year_from, args.year_to)
+
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    main(args)
