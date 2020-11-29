@@ -1,12 +1,9 @@
 import os
-import sys
 import pickle
 from argparse import Namespace, ArgumentParser
 from pkg_resources import resource_filename
-from patent_parsing_tools.supervisor import Supervisor
-from patent_parsing_tools.bow.wordcount import WordCount
-from patent_parsing_tools.utils.log import log, log_timer
-from patent_parsing_tools.patent import Patent
+
+# from patent_parsing_tools import Supervisor, WordCount, log, log_timer, Patent
 
 
 @log
@@ -131,11 +128,7 @@ class BagOfWords:
 
 
 def parse_arguments() -> Namespace:
-    parser = ArgumentParser(
-        description=(
-            "Download dataset as zip files to the destination directory"
-        )
-    )
+    parser = ArgumentParser(description="Bag of words on xml files")
     parser.add_argument(
         "--serialized-directory",
         type=str,

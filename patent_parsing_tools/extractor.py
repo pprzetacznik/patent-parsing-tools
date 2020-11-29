@@ -2,9 +2,10 @@ import os
 import re
 import lxml.etree as ET
 import json
-from patent_parsing_tools.patent import Patent
-from patent_parsing_tools.utils.log import log
 from pkg_resources import resource_stream
+
+# from patent_parsing_tools import Patent, log
+from patent_parsing_tools.utils.log import log
 
 
 class NotSupportedDTDConfiguration(Exception):
@@ -77,9 +78,9 @@ class Extractor:
             text = ET.tostring(node, pretty_print=True).decode()
             return re.sub("<[^<]+?>", "", text)
         except IndexError as e:
-            self.logger.warning("Message: {e}")
+            self.logger.warning(f"Message: {e}")
             self.logger.warning(
-                "Node: " + filepart + " doesn't exists in file: " + inputfile
+                f"Node: {filepart} doesn't exists in file: {inputfile}"
             )
         return None
 
@@ -88,7 +89,7 @@ class Extractor:
             dtdFile = tree.docinfo.internalDTD.system_url
         except Exception:
             raise NotSupportedDTDConfiguration(
-                "File: " + inputfile + " has not supported xml structure"
+                f"File: {inputfile} has not supported xml structure"
             )
 
         try:

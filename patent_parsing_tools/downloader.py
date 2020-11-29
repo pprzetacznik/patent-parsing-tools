@@ -1,7 +1,6 @@
 import os
 import re
 import requests
-import sys
 from lxml import etree
 from argparse import Namespace, ArgumentParser
 from patent_parsing_tools.utils.log import log
@@ -53,21 +52,6 @@ class Downloader:
             return False
         year = int(match.group("year"))
         return begin_year <= year and year <= end_year
-
-
-def process_args(argv):
-    dir = sys.argv[1]
-    if not os.path.isdir(dir):
-        os.makedirs(dir)
-
-    try:
-        begin_year = int(sys.argv[2])
-        end_year = int(sys.argv[3])
-    except Exception as e:
-        print(e)
-        print("incorrect year")
-
-    return dir, begin_year, end_year
 
 
 def parse_arguments() -> Namespace:

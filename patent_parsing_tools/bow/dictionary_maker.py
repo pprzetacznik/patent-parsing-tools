@@ -1,10 +1,9 @@
 import os
-import sys
 import pickle
 import operator
 from argparse import Namespace, ArgumentParser
-from patent_parsing_tools.bow.wordcount import WordCount
-from patent_parsing_tools.utils.log import log, log_timer
+
+# from patent_parsing_tools import WordCount, log, log_timer
 
 
 @log
@@ -58,9 +57,7 @@ class DictionaryMaker:
 
 def parse_arguments() -> Namespace:
     parser = ArgumentParser(
-        description=(
-            "Download dataset as zip files to the destination directory"
-        )
+        description="Create dictionary before doing bag of words"
     )
     parser.add_argument(
         "--train-directory",

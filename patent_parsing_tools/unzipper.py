@@ -1,8 +1,9 @@
 from zipfile import is_zipfile, ZipFile
-from sys import argv
 from os import listdir, path, unlink
 from os.path import join, splitext, basename, isfile
-from patent_parsing_tools.splitter import Splitter
+from argparse import Namespace, ArgumentParser
+
+# from patent_parsing_tools import Splitter, log
 from patent_parsing_tools.utils.log import log
 
 
@@ -70,10 +71,23 @@ def get_files(directory, type):
     return [join(directory, f) for f in listdir(directory) if f.endswith(type)]
 
 
+def parse_arguments() -> Namespace:
+    parser = ArgumentParser(description="Unzipper")
+    parser.add_argument(
+        "--directory",
+        type=str,
+        help="Destination directory where dataset should be downloaded",
+        dest="directory",
+        required=True,
+    )
+    return parser.parse_args()
+
+
+def main(args: Namespace) -> None:
+    unzipper = Unzipper(args.directory)
+    unzipper.unzip_all()
+
+
 if __name__ == "__main__":
-    if len(argv) == 2:
-        dir = argv[1]
-        unzipper = Unzipper(dir)
-        unzipper.unzip_all()
-    else:
-        print("python unzipper.py [directory]")
+    args = parse_arguments()
+    main(args)

@@ -5,9 +5,7 @@ from os.path import join
 from random import randint, shuffle
 import pickle
 from argparse import Namespace, ArgumentParser
-from patent_parsing_tools.downloader import Downloader
-from patent_parsing_tools.unzipper import Unzipper
-from patent_parsing_tools.extractor import Extractor
+from patent_parsing_tools import Downloader, Unzipper, Extractor
 from patent_parsing_tools.utils.log import log
 
 
@@ -57,7 +55,7 @@ class Supervisor:
         total_number_of_test_patents = 0
 
         for patent in patents:
-            self.logger.info("extracting " + patent)
+            self.logger.info(f"extracting {patent}")
             try:
                 parsed_patent = extractor.parse(patent)
                 if self.is_patent_valid(parsed_patent):
@@ -97,10 +95,9 @@ class Supervisor:
         patent_list_number = 1
         while ind < len(patent_list):
             with open(
-                patent_list_destination
-                + os.sep
-                + "xml_tuple_"
-                + str(patent_list_number),
+                join(
+                    patent_list_destination, f"xml_tuple_{patent_list_number}"
+                ),
                 "wb",
             ) as f:
                 if ind + 1023 > len(patent_list):
@@ -127,7 +124,7 @@ class Supervisor:
             and patent.claims is not None
         ):
             return True
-        self.logger.warn("patent " + patent.documentID + " is not valid")
+        self.logger.warn(f"patent {patent.documentID} is not valid")
         return False
 
 
@@ -143,25 +140,9 @@ def get_files(directory, type):
     return l
 
 
-def process_args(argv):
-    working_directory = argv[1]
-    train_dest = argv[2]
-    test_dest = argv[3]
-
-    try:
-        begin_year = int(argv[4])
-        end_year = int(argv[5])
-    except:
-        print("incorrect year")
-
-    return working_directory, train_dest, test_dest, begin_year, end_year
-
-
 def parse_arguments() -> Namespace:
     parser = ArgumentParser(
-        description=(
-            "Download dataset as zip files to the destination directory"
-        )
+        description="Download USPTO patents and split files"
     )
     parser.add_argument(
         "--working-directory",
