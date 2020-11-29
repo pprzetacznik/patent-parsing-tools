@@ -2,8 +2,8 @@ import os
 import pickle
 from argparse import Namespace, ArgumentParser
 from pkg_resources import resource_filename
-
-# from patent_parsing_tools import Supervisor, WordCount, log, log_timer, Patent
+from patent_parsing_tools import Supervisor, WordCount, Patent
+from patent_parsing_tools.utils.log import log, log_timer
 
 
 @log

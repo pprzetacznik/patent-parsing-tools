@@ -7,12 +7,13 @@ with open("requirements.txt") as f:
 
 
 def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    with open(os.path.join(os.path.dirname(__file__), fname)) as f:
+        return f.read()
 
 
 setup(
     name="patent-parsing-tools",
-    version="0.9.2",
+    version="0.9.3",
     author="Michal Dul, Piotr Przetacznik, Krzysztof Strojny",
     author_email="piotr.przetacznik@gmail.com",
     description=(
@@ -22,7 +23,7 @@ setup(
     ),
     license="MIT",
     keywords="deeplearning dbn rbm rsm backpropagation precission recall",
-    url="https://bitbucket.org/ml-patents/patent-parsing-tools",
+    url="https://github.com/pprzetacznik/patent-parsing-tools",
     packages=find_packages(),
     long_description=read("README.md"),
     classifiers=[
@@ -32,6 +33,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.8",
     ],
-    package_data={"": ["*.txt", "*.json", "*.XML"],},
+    package_data={"": ["*.txt", "*.json", "*.XML"]},
     install_requires=required,
 )

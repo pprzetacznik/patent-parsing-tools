@@ -2,8 +2,8 @@ import os
 import pickle
 import operator
 from argparse import Namespace, ArgumentParser
-
-# from patent_parsing_tools import WordCount, log, log_timer
+from patent_parsing_tools import WordCount
+from patent_parsing_tools.utils.log import log, log_timer
 
 
 @log

@@ -3,8 +3,7 @@ import re
 import lxml.etree as ET
 import json
 from pkg_resources import resource_stream
-
-# from patent_parsing_tools import Patent, log
+from patent_parsing_tools.patent import Patent
 from patent_parsing_tools.utils.log import log
 
 
