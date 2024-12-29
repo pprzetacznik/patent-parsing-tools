@@ -27,7 +27,7 @@ jobs:
       run: |
         pip install twine wheel
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+        twine upload dist/* --skip-existing
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -35,7 +35,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        release_name: patent-parsing-tools ${{ github.ref }}
         body: |
           Changes in this release:
           - ${{ github.event.head_commit.message }}

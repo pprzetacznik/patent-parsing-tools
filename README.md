@@ -2,9 +2,10 @@ patent-parsing-tools
 ====================
 USPTO patents dataset generator.
 
-[![Build Status](https://travis-ci.org/pprzetacznik/patent-parsing-tools.svg?branch=master)](https://travis-ci.org/pprzetacznik/patent-parsing-tools)
 [![Documentation Status](https://readthedocs.org/projects/patent-parsing-tools/badge/?version=latest)](https://patent-parsing-tools.readthedocs.io/en/latest/?badge=latest)
 [![patent-parsing-tools CI](https://github.com/pprzetacznik/patent-parsing-tools/workflows/patent-parsing-tools%20CI/badge.svg)](https://github.com/pprzetacznik/patent-parsing-tools/actions?query=workflow%3A"patent-parsing-tools+CI")
+[![PyPI version](https://badge.fury.io/py/patent-parsing-tools.svg)](https://pypi.org/project/patent-parsing-tools/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/patent-parsing-tools)](https://pypi.org/project/patent-parsing-tools/)
 
 ## Documentation
 
@@ -74,8 +75,29 @@ pytest
 ## Contributing and develpment
 
 ```Bash
-pip install -r requirements.txt
+$ mkvirtualenv ppt
+$ workon ppt
+(ppt) $ pip install -r requirements.txt
 ```
+
+## Publish new release
+
+```Bash
+$ git tag v1.0
+$ git push origin v1.0
+```
+
+## Building documentation
+
+```Bash
+(ppt) $ sphinx-build -M html docs docs_build
+```
+
+## References
+
+Usage:
+* Elton, *Using natural language processing techniques to extract information on the properties and functionalities of energetic materials from large text corpora*, 2019, online: [https://arxiv.org/abs/1903.00415](https://arxiv.org/abs/1903.00415).
+* Lee, *Natural Language Processing Techniques for Advancing Materials Discovery: A Short Review*, 2023, online: [https://doi.org/10.1007/s40684-023-00523-6](https://doi.org/10.1007/s40684-023-00523-6).
 
 ## License
 

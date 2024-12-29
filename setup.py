@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name="patent-parsing-tools",
-    version="0.9.3",
+    version="0.9.5",
     author="Michal Dul, Piotr Przetacznik, Krzysztof Strojny",
     author_email="piotr.przetacznik@gmail.com",
     description=(
@@ -26,6 +26,7 @@ setup(
     url="https://github.com/pprzetacznik/patent-parsing-tools",
     packages=find_packages(),
     long_description=read("README.md"),
+    long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
