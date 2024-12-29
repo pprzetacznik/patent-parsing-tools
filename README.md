@@ -77,6 +77,12 @@ pytest
 pip install -r requirements.txt
 ```
 
+## References
+
+Usage:
+* Elton, *Using natural language processing techniques to extract information on the properties and functionalities of energetic materials from large text corpora*, 2019, online: [https://arxiv.org/abs/1903.00415](https://arxiv.org/abs/1903.00415).
+* Lee, *Natural Language Processing Techniques for Advancing Materials Discovery: A Short Review*, 2023, online: [https://doi.org/10.1007/s40684-023-00523-6](https://doi.org/10.1007/s40684-023-00523-6).
+
 ## License
 
 The MIT License (MIT). Copyright (c) 2014 Michał Dul, Piotr Przetacznik, Krzysztof Strojny. Check [LICENSE](LICENSE) files for more information.
